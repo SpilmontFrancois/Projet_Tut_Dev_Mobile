@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\MessageResource;
 use App\Models\Message;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -11,37 +12,52 @@ class MessageController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(MessageResource::collection(Message::all()));
+        return $this->success(MessageResource::collection(Message::all()));
     }
 
     public function show(Request $request, int $id): JsonResponse
     {
+        try {
+            $message = Message::findOrFail($id);
 
-        return response()->json(new MessageResource(Message::find($id)));
+            return $this->success(new MessageResource($message));
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
     }
 
     public function store(Request $request): JsonResponse
     {
-        $message = Message::create($request->all());
+        try {
+            $message = Message::create($request->all());
 
-        return response()->json(new MessageResource($message));
+            return $this->ressourceCreated(new MessageResource($message));
+        } catch (Exception $e) {
+            return $this->ressourceNotCreated($e);
+        }
     }
 
     public function update(Request $request, $id): JsonResponse
     {
-        $message = Message::find($id);
-        $message->update($request->all());
+        try {
+            $message = Message::find($id);
+            $message->update($request->all());
 
-        return response()->json(new MessageResource($message));
+            return $this->ressourceUpdated(new MessageResource($message));
+        } catch (Exception $e) {
+            return $this->ressourceNotUpdated($e);
+        }
     }
 
     public function destroy($id): JsonResponse
     {
-        $message = Message::find($id);
-        $message->delete();
+        try {
+            $message = Message::findOrFail($id);
+            $message->delete();
 
-        return response()->json([
-            'message' => 'Message deleted',
-        ]);
+            return $this->ressourceDeleted();
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -11,37 +12,52 @@ class UserController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(UserResource::collection(User::all()));
+        return $this->success(UserResource::collection(User::all()));
     }
 
     public function show(Request $request, int $id): JsonResponse
     {
+        try {
+            $user = User::findOrFail($id);
 
-        return response()->json(new UserResource(User::find($id)));
+            return $this->success(new UserResource($user));
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
     }
 
     public function store(Request $request): JsonResponse
     {
-        $user = User::create($request->all());
+        try {
+            $user = User::create($request->all());
 
-        return response()->json(new UserResource($user));
+            return $this->ressourceCreated(new UserResource($user));
+        } catch (Exception $e) {
+            return $this->ressourceNotCreated($e);
+        }
     }
 
     public function update(Request $request, $id): JsonResponse
     {
-        $user = User::find($id);
-        $user->update($request->all());
+        try {
+            $user = User::find($id);
+            $user->update($request->all());
 
-        return response()->json(new UserResource($user));
+            return $this->ressourceUpdated(new UserResource($user));
+        } catch (Exception $e) {
+            return $this->ressourceNotUpdated($e);
+        }
     }
 
     public function destroy($id): JsonResponse
     {
-        $user = User::find($id);
-        $user->delete();
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
 
-        return response()->json([
-            'message' => 'User deleted',
-        ]);
+            return $this->ressourceDeleted();
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
     }
 }
