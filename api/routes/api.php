@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::apiResource('/', Controller);
-
 Route::get('/', function () {
-    return 'Hello World';
+    return response()->json([
+        'message' => 'Welcome to the API',
+    ]);
 });
+
+Route::apiResource('users', UserController::class);
+Route::apiResource('messages', MessageController::class);
