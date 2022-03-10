@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\MessageResource;
-use App\Models\Message;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class PostController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->success(MessageResource::collection(Message::all()));
+        return $this->success(PostResource::collection(Post::all()));
     }
 
     public function show(Request $request, int $id): JsonResponse
     {
         try {
-            $message = Message::findOrFail($id);
+            $Post = Post::findOrFail($id);
 
-            return $this->success(new MessageResource($message));
+            return $this->success(new PostResource($Post));
         } catch (Exception $e) {
             return $this->ressourceNotFound();
         }
@@ -29,9 +29,9 @@ class MessageController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $message = Message::create($request->all());
+            $Post = Post::create($request->all());
 
-            return $this->ressourceCreated(new MessageResource($message));
+            return $this->ressourceCreated(new PostResource($Post));
         } catch (Exception $e) {
             return $this->ressourceNotCreated($e);
         }
@@ -40,10 +40,10 @@ class MessageController extends Controller
     public function update(Request $request, $id): JsonResponse
     {
         try {
-            $message = Message::find($id);
-            $message->update($request->all());
+            $Post = Post::find($id);
+            $Post->update($request->all());
 
-            return $this->ressourceUpdated(new MessageResource($message));
+            return $this->ressourceUpdated(new PostResource($Post));
         } catch (Exception $e) {
             return $this->ressourceNotUpdated($e);
         }
@@ -52,8 +52,8 @@ class MessageController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $message = Message::findOrFail($id);
-            $message->delete();
+            $Post = Post::findOrFail($id);
+            $Post->delete();
 
             return $this->ressourceDeleted();
         } catch (Exception $e) {
