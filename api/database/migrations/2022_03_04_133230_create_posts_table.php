@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->foreignId('user_id')->constrained();
             $table->string('content');
+            $table->integer('stars')->default(0);
+            $table->integer('shares')->default(0);
             $table->timestamps();
         });
     }
