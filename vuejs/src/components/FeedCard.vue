@@ -12,9 +12,18 @@
         </span>
       </div>
       <span class="d-flex justify-content-around">
-        <div><font-awesome-icon icon="star" /> {{ message.stars }}</div>
-        <div><font-awesome-icon icon="retweet" /> {{ message.shares }}</div>
-        <div><font-awesome-icon icon="comments" /> {{ message.comments }}</div>
+        <div>
+          <font-awesome-icon icon="star" class="svg-purple" />
+          {{ message.stars }}
+        </div>
+        <div>
+          <font-awesome-icon icon="retweet" class="svg-purple" />
+          {{ message.shares }}
+        </div>
+        <div>
+          <font-awesome-icon icon="comments" class="svg-purple" />
+          {{ message.comments }}
+        </div>
       </span>
     </div>
   </div>
