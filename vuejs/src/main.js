@@ -1,5 +1,35 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import App from "./routes/index.vue";
 import "./registerServiceWorker";
+import { createWebHistory, createRouter } from "vue-router";
 
-createApp(App).mount("#app");
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import "./assets/css/main.css"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+
+import Home from './routes/index.vue'
+import Login from './routes/login/index.vue'
+import Feed from './routes/feed/index.vue'
+import Profile from './routes/profile/index.vue'
+import Messages from './routes/messages/index.vue'
+
+library.add(fas)
+
+const routes = [
+    { path: '/', component: Home },
+    { path: '/login', component: Login },
+    { path: '/feed', component: Feed },
+    { path: '/profile', component: Profile },
+    { path: '/messages', component: Messages }
+]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+})
+
+createApp(App).component("font-awesome-icon", FontAwesomeIcon).use(router).mount("#app");
