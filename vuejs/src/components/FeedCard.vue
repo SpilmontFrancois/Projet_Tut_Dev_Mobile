@@ -1,7 +1,6 @@
 <template>
   <div class="card m-2">
     <div class="card-body pb-2">
-      <h5 class="card-title">{{ message.content }}</h5>
       <div class="card-text">
         <img
           :src="message.user.avatar"
@@ -11,6 +10,7 @@
           {{ message.user.name }}
         </span>
       </div>
+      <h5 class="card-title">{{ message.content }}</h5>
       <span class="d-flex justify-content-around">
         <div @click="star">
           <font-awesome-icon icon="star" class="svg-purple" />
