@@ -7,6 +7,7 @@ use App\Models\Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -18,9 +19,9 @@ class PostController extends Controller
     public function show(Request $request, int $id): JsonResponse
     {
         try {
-            $Post = Post::findOrFail($id);
+            $post = Post::findOrFail($id);
 
-            return $this->success(new PostResource($Post));
+            return $this->success(new PostResource($post));
         } catch (Exception $e) {
             return $this->ressourceNotFound();
         }
@@ -29,22 +30,25 @@ class PostController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $Post = Post::create($request->all());
+            $post = Post::create($request->all());
 
-            return $this->ressourceCreated(new PostResource($Post));
+            return $this->ressourceCreated(new PostResource($post));
         } catch (Exception $e) {
             return $this->ressourceNotCreated($e);
         }
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, $id)
     {
         try {
-            $Post = Post::find($id);
-            $Post->update($request->all());
-
-            return $this->ressourceUpdated(new PostResource($Post));
+            $post = Post::findOrFail($id);
+            DB::beginTransaction();
+            $post->update($request->all());
+            DB::commit();
+            
+            return $this->ressourceUpdated(new PostResource($post));
         } catch (Exception $e) {
+            DB::rollBack();
             return $this->ressourceNotUpdated($e);
         }
     }
@@ -52,8 +56,8 @@ class PostController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $Post = Post::findOrFail($id);
-            $Post->delete();
+            $post = Post::findOrFail($id);
+            $post->delete();
 
             return $this->ressourceDeleted();
         } catch (Exception $e) {

@@ -12,13 +12,13 @@
         </span>
       </div>
       <span class="d-flex justify-content-around">
-        <div>
+        <div @click="star">
           <font-awesome-icon icon="star" class="svg-purple" />
-          {{ message.stars }}
+          {{ stars }}
         </div>
-        <div>
+        <div @click="share">
           <font-awesome-icon icon="retweet" class="svg-purple" />
-          {{ message.shares }}
+          {{ shares }}
         </div>
         <div>
           <font-awesome-icon icon="comments" class="svg-purple" />
@@ -35,6 +35,44 @@ export default {
     message: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      stars: false,
+      shares: false,
+    }
+  },
+  created() {
+    this.stars = this.message.stars
+    this.shares = this.message.shares
+  },
+  methods: {
+    async star() {
+      try {
+        await this.axios.put(
+          `http://localhost:8000/api/posts/${this.message.id}`,
+          {
+            stars: this.stars + 1,
+          }
+        )
+        this.stars++
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async share() {
+      try {
+        await this.axios.put(
+          `http://localhost:8000/api/posts/${this.message.id}`,
+          {
+            shares: this.shares + 1,
+          }
+        )
+        this.shares++
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
