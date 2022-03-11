@@ -7,6 +7,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import axios from "axios";
+import VueAxios from "vue-axios";
+
 import "./assets/css/main.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
@@ -32,4 +35,4 @@ const router = createRouter({
     routes,
 })
 
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).use(router).mount("#app");
+createApp(App).component("font-awesome-icon", FontAwesomeIcon).use(VueAxios, axios).use(router).mount("#app");
