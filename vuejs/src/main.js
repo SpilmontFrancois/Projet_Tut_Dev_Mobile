@@ -17,6 +17,7 @@ import "bootstrap"
 import Home from './routes/index.vue'
 import Login from './routes/login/index.vue'
 import Feed from './routes/feed/index.vue'
+import Post from './routes/post/index.vue'
 import Profile from './routes/profile/index.vue'
 import Messages from './routes/messages/index.vue'
 
@@ -26,6 +27,7 @@ const routes = [
     { path: '/', component: Home },
     { path: '/login', component: Login },
     { path: '/feed', component: Feed },
+    { path: '/feed/:id', component: Post },
     { path: '/profile', component: Profile },
     { path: '/messages', component: Messages }
 ]

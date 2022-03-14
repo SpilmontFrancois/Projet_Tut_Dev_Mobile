@@ -20,7 +20,7 @@
           <font-awesome-icon icon="retweet" class="svg-purple" />
           {{ shares }}
         </div>
-        <div>
+        <div @click="showPost">
           <font-awesome-icon icon="comments" class="svg-purple" />
           {{ message.comments }}
         </div>
@@ -73,6 +73,9 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    showPost() {
+      this.$router.push(`/feed/${this.message.id}`)
     },
   },
 }
