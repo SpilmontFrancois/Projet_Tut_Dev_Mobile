@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,4 @@ Route::get('/', function () {
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('posts', PostController::class);
+Route::apiResource('post_comments', PostCommentsController::class);
