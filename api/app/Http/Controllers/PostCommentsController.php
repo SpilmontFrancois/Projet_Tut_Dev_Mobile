@@ -18,9 +18,12 @@ class PostCommentsController extends Controller
     public function show(Request $request, int $id): JsonResponse
     {
         try {
-            $user = PostComments::findOrFail($id);
+            $postComment = PostComments::where('post_id', $id)->get();
 
-            return $this->success(new PostCommentsResource($user));
+            if (!$postComment)
+                return $this->ressourceNotFound();
+                
+            return $this->success(new PostCommentsResource($postComment));
         } catch (Exception $e) {
             return $this->ressourceNotFound();
         }
@@ -29,9 +32,9 @@ class PostCommentsController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $user = PostComments::create($request->all());
+            $postComment = PostComments::create($request->all());
 
-            return $this->ressourceCreated(new PostCommentsResource($user));
+            return $this->ressourceCreated(new PostCommentsResource($postComment));
         } catch (Exception $e) {
             return $this->ressourceNotCreated($e);
         }
@@ -40,10 +43,10 @@ class PostCommentsController extends Controller
     public function update(Request $request, $id): JsonResponse
     {
         try {
-            $user = PostComments::find($id);
-            $user->update($request->all());
+            $postComment = PostComments::find($id);
+            $postComment->update($request->all());
 
-            return $this->ressourceUpdated(new PostCommentsResource($user));
+            return $this->ressourceUpdated(new PostCommentsResource($postComment));
         } catch (Exception $e) {
             return $this->ressourceNotUpdated($e);
         }
@@ -52,8 +55,8 @@ class PostCommentsController extends Controller
     public function destroy($id): JsonResponse
     {
         try {
-            $user = PostComments::findOrFail($id);
-            $user->delete();
+            $postComment = PostComments::findOrFail($id);
+            $postComment->delete();
 
             return $this->ressourceDeleted();
         } catch (Exception $e) {
