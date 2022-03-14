@@ -19,6 +19,9 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->userName(),
+            'firstname' => $this->faker->firstName(),
+            'lastname' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'avatar' => 'https://i.pravatar.cc/300?u=' . Str::random(10),
             'bio' => $this->faker->sentence(),
