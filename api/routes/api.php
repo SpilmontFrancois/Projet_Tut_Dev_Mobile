@@ -25,3 +25,6 @@ Route::get('/', function () {
 Route::apiResource('users', UserController::class);
 Route::apiResource('posts', PostController::class);
 Route::apiResource('post_comments', PostCommentsController::class);
+
+Route::post('/share/{id}', [PostController::class, 'share']);
+Route::post('/star/{id}', [PostController::class, 'star']);

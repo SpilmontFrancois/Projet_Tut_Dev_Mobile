@@ -50,11 +50,8 @@ export default {
   methods: {
     async star() {
       try {
-        await this.axios.put(
-          `http://localhost:8000/api/posts/${this.message.id}`,
-          {
-            stars: this.stars + 1,
-          }
+        await this.axios.post(
+          `http://localhost:8000/api/star/${this.message.id}`
         )
         this.stars++
       } catch (error) {
@@ -63,11 +60,8 @@ export default {
     },
     async share() {
       try {
-        await this.axios.put(
-          `http://localhost:8000/api/posts/${this.message.id}`,
-          {
-            shares: this.shares + 1,
-          }
+        await this.axios.post(
+          `http://localhost:8000/api/share/${this.message.id}`
         )
         this.shares++
       } catch (error) {
