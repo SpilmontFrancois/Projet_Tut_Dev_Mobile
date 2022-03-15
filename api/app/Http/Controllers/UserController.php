@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,17 +24,6 @@ class UserController extends Controller
             return $this->success(new UserResource($user));
         } catch (Exception $e) {
             return $this->ressourceNotFound();
-        }
-    }
-
-    public function store(Request $request): JsonResponse
-    {
-        try {
-            $user = User::create($request->all());
-
-            return $this->ressourceCreated(new UserResource($user));
-        } catch (Exception $e) {
-            return $this->ressourceNotCreated($e);
         }
     }
 
@@ -59,5 +49,63 @@ class UserController extends Controller
         } catch (Exception $e) {
             return $this->ressourceNotFound();
         }
+    }
+
+    function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $credentials = request(['email', 'password']);
+
+        if (!auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $token = $request->user()->createToken('Personal Access Token');
+
+        return response()->json([
+            'access_token' => $token->plainTextToken,
+        ]);
+    }
+
+    function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string',
+            'avatar' => 'sometimes|string',
+            'bio' => 'sometimes|string',
+        ]);
+
+        $user = new User([
+            'username' => $request->username,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'avatar' => $request->avatar,
+            'bio' => $request->bio,
+        ]);
+        $user->save();
+
+        return $this->login($request);
     }
 }
