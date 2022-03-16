@@ -1,0 +1,41 @@
+.bg-nav {
+    background-color: #7e48e8;
+}
+
+.h-img {
+    height: 3rem;
+}
+
+.rounded-card {
+    border-radius: 1rem !important;
+}
+
+.btn-dark-purple {
+    background-color: #2A194D !important;
+    color: #fff !important;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+}
+
+.center-component {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.oval {
+    -moz-border-radius: 200px / 150px;
+    -webkit-border-radius: 200px / 150px;
+    border-radius: 200px / 150px;
+}
