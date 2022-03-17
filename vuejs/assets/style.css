@@ -1,5 +1,11 @@
-.bg-nav {
-    background-color: #7e48e8;
+@font-face {
+    font-family: "NunitoSans";
+    src: local("NunitoSans"),
+        url(~assets/fonts/NunitoSans-Regular.ttf) format("truetype");
+}
+
+html {
+    font-family: "NunitoSans";
 }
 
 .h-img {
@@ -8,11 +14,6 @@
 
 .rounded-card {
     border-radius: 1rem !important;
-}
-
-.btn-dark-purple {
-    background-color: #2A194D !important;
-    color: #fff !important;
 }
 
 .card {
@@ -34,8 +35,6 @@
     transform: translate(-50%, -50%);
 }
 
-.oval {
-    -moz-border-radius: 200px / 150px;
-    -webkit-border-radius: 200px / 150px;
-    border-radius: 200px / 150px;
+.bottom-1\/6 {
+    bottom: calc(100% / 6);
 }

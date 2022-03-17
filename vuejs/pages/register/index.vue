@@ -68,6 +68,7 @@
 <script>
 export default {
   name: 'RegisterPage',
+  auth: 'guest',
   data() {
     return {
       username: '',

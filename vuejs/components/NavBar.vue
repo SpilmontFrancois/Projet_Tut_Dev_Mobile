@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-nav flex justify-around items-center h-14">
+  <div class="bg-purple flex justify-around items-center h-14">
     <router-link class="m-0" to="">
       <fa-icon :icon="['fas', 'search']" color="white" />
     </router-link>

@@ -4,7 +4,8 @@ module.exports = {
         colors: {
             'back': '#F7F3FE',
             'purple': '#7C49E9',
-            'dark-purple': "#2A194D"
+            'dark-purple': '#2A194D',
+            'gray': '#C4C4C4'
         },
         fontFamily: {
             sans: ['Graphik', 'sans-serif'],

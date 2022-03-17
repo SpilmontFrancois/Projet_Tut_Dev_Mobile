@@ -1,28 +1,88 @@
 <template>
-  <div class="bg-back">
-    <div class="flex flex-col h-screen justify-between">
-      <People class="w-full z-10" />
-      <Ellipsis class="fixed top-1/4 w-full h-5/6" />
-      <div class="fixed bg-purple h-3/6 w-full bottom-0" />
+  <div>
+    <People />
+    <div class="fixed z-50 bottom-1/6 w-full">
+      <div class="flex flex-col items-center w-full">
+        <div class="rounded-3xl h-10 w-5/6 bg-back">
+          <input
+            v-model="email"
+            type="email"
+            class="opacity-0 fixed cursor-text w-5/6 h-full"
+            required
+          />
+          <span
+            class="border-b-2 border-gray w-5/6 flex justify-center ml-7 mt-1"
+          >
+            {{ email }}
+          </span>
+        </div>
+        <div class="rounded-3xl h-10 w-5/6 bg-back mt-4">
+          <input
+            v-model="password"
+            type="password"
+            class="opacity-0 fixed cursor-text w-5/6 h-full"
+            required
+          />
+          <div class="flex">
+            <span
+              class="border-b-2 border-gray w-5/6 flex justify-center ml-7 mt-1"
+            >
+              {{ passwordVisible ? password : hiddenPassword }}
+            </span>
+            <fa-icon
+              class="z-50 mt-3"
+              :icon="passwordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']"
+              @click="passwordVisible = !passwordVisible"
+            />
+          </div>
+        </div>
+        <button
+          class="rounded-3xl h-10 w-5/6 bg-dark-purple text-back mt-4 z-50"
+        >
+          Me connecter
+        </button>
+        <a href="#" class="text-back mt-4 z-50">
+          <fa-icon class="z-50" :icon="['fas', 'lock']" />
+          <span>Mot de passe oublié ?</span>
+        </a>
+        <NuxtLink
+          to="/register"
+          class="
+            rounded-3xl
+            h-10
+            w-5/6
+            bg-opacity-0
+            text-back
+            mt-4
+            border-2
+            fixed
+            bottom-10
+          "
+        >
+          <span class="flex items-center justify-center h-full">
+            Me créer un compte
+          </span>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import People from '@/assets/svg/people.svg?inline'
-import Ellipsis from '@/assets/svg/ellipse.svg?inline'
-
+// TODO : finir la page de login
 export default {
   name: 'LoginPage',
-  components: {
-    People,
-    Ellipsis,
-  },
   data() {
     return {
-      email: null,
-      password: null,
+      email: 'Adresse email',
+      password: 'Mot de passe',
+      passwordVisible: false,
     }
+  },
+  computed: {
+    hiddenPassword() {
+      return '●'.repeat(this.password.length)
+    },
   },
   methods: {
     login() {
