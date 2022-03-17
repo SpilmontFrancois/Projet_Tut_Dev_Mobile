@@ -76,7 +76,7 @@ export default {
     return {
       email: 'Adresse email',
       password: 'Mot de passe',
-      passwordVisible: false,
+      passwordVisible: true,
     }
   },
   computed: {
