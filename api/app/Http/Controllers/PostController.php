@@ -45,7 +45,7 @@ class PostController extends Controller
             DB::beginTransaction();
             $post->update($request->all());
             DB::commit();
-            
+
             return $this->ressourceUpdated(new PostResource($post));
         } catch (Exception $e) {
             DB::rollBack();
@@ -60,6 +60,30 @@ class PostController extends Controller
             $post->delete();
 
             return $this->ressourceDeleted();
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
+    }
+
+    public function share(Request $request, int $id): JsonResponse
+    {
+        try {
+            $post = Post::findOrFail($id);
+            $post->update(['shares' => $post->shares + 1]);
+
+            return $this->success(new PostResource($post));
+        } catch (Exception $e) {
+            return $this->ressourceNotFound();
+        }
+    }
+
+    public function star(Request $request, int $id): JsonResponse
+    {
+        try {
+            $post = Post::findOrFail($id);
+            $post->update(['stars' => $post->stars + 1]);
+
+            return $this->success(new PostResource($post));
         } catch (Exception $e) {
             return $this->ressourceNotFound();
         }
