@@ -2,10 +2,7 @@
   <div class="card m-2">
     <div class="p-1 pb-2">
       <div>
-        <img
-          :src="post.user.avatar"
-          class="rounded-full me-2 mb-1 h-10"
-        />
+        <img :src="post.user.avatar" class="rounded-full me-2 mb-1 h-10" />
         <small>
           {{ post.user.name }}
         </small>
@@ -20,10 +17,6 @@
           <fa-icon :icon="['fas', 'retweet']" class="purple" />
           {{ shares }}
         </div>
-        <div @click="showPost">
-          <fa-icon :icon="['fas', 'comments']" class="purple" />
-          {{ post.comments }}
-        </div>
       </span>
     </div>
   </div>
@@ -31,7 +24,7 @@
 
 <script>
 export default {
-  name: 'FeedCardComponent',
+  name: 'PostCardComponent',
   props: {
     post: {
       type: Object,
@@ -44,16 +37,14 @@ export default {
       shares: false,
     }
   },
-  created() {
+  mounted() {
     this.stars = this.post.stars
     this.shares = this.post.shares
   },
   methods: {
     async star() {
       try {
-        await this.$axios.$post(
-          `/api/star/${this.post.id}`
-        )
+        await this.$axios.$post(`/api/star/${this.post.id}`)
         this.stars++
       } catch (error) {
         console.log(error)
@@ -61,16 +52,11 @@ export default {
     },
     async share() {
       try {
-        await this.$axios.$post(
-          `/api/share/${this.post.id}`
-        )
+        await this.$axios.$post(`/api/share/${this.post.id}`)
         this.shares++
       } catch (error) {
         console.log(error)
       }
-    },
-    showPost() {
-      this.$router.push(`/feed/${this.post.id}`)
     },
   },
 }

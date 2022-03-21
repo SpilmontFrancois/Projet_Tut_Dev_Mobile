@@ -55,28 +55,26 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:8000',
-    credentials: true,
+    // credentials: true,
     proxy: true,
   },
 
   proxy: {
-    '/api/': 'http://localhost:8000/api/',
+    '/api/': process.env.API_URL,
   },
 
   router: {
-    middleware: ['auth']
+    // middleware: ['auth']
   },
 
-  auth: {
-    strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: 'http://localhost:8000/api/auth',
-      },
-    }
-  },
+  // auth: {
+    // strategies: {
+      // laravelSanctum: {
+        // provider: 'laravel/sanctum',
+        // url: process.env.API_URL + 'auth',
+      // },
+    // }
+  // },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
