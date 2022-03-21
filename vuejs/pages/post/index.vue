@@ -28,13 +28,8 @@
 </template>
 
 <script>
-import NavBar from '../../components/NavBar.vue'
-
 export default {
   name: 'PostsPage',
-  components: {
-    NavBar,
-  },
   data() {
     return {
       comments: null,

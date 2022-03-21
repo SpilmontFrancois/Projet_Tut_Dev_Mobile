@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div v-if="loaded">
-      <PostCard :post="post" />
+      <Post :post="post" />
     </div>
     <div v-else>
       <div class="d-flex justify-content-center mt-2">
@@ -29,6 +29,13 @@ export default {
         `/api/posts/${this.$route.params.id}`
       )
       this.post = data
+      this.fetchPostComments()
+    },
+    async fetchPostComments() {
+      const { data } = await this.$axios.$get(
+        `/api/post_comments/${this.$route.params.id}`
+      )
+      this.post.comments = data
       this.loaded = true
     },
   },

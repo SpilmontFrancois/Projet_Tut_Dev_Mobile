@@ -21,13 +21,8 @@
 </template>
 
 <script>
-import NavBar from '../../components/NavBar.vue'
-
 export default {
   name: 'ProfilePage',
-  components: {
-    NavBar,
-  },
   data() {
     return {
       user: {},

@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded">
-    <FeedCard
+    <Card
       v-for="(post, index) in posts"
       :key="index"
       :post="post" />
@@ -13,13 +13,8 @@
 </template>
 
 <script>
-import FeedCard from './FeedCard.vue'
-
 export default {
   name: 'FeedComponent',
-  components: {
-    FeedCard,
-  },
   data() {
     return {
       posts: [],
