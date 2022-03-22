@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\PostComments;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,7 +26,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'stars' => $this->stars,
             'shares' => $this->shares,
-            // 'comments' => Comment::find($this->id)->count(),
+            'comments' => PostComments::where('post_id', $this->id)->count(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

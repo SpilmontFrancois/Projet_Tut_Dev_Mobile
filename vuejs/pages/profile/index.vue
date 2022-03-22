@@ -21,13 +21,8 @@
 </template>
 
 <script>
-import NavBar from '../../components/NavBar.vue'
-
 export default {
   name: 'ProfilePage',
-  components: {
-    NavBar,
-  },
   data() {
     return {
       user: {},
@@ -39,7 +34,7 @@ export default {
   methods: {
     async fetchUser() {
       // TODO : change user id to current user id
-      const { data } = await this.$axios.get('/api/users/1')
+      const { data } = await this.$axios.$get('/api/users/1')
       this.user = data.data
     },
   },
