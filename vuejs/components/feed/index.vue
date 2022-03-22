@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded">
-    <Card
+    <FeedCard
       v-for="(post, index) in posts"
       :key="index"
       :post="post" />

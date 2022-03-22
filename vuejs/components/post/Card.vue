@@ -1,11 +1,16 @@
 <template>
   <div class="card m-2">
     <div class="p-1 pb-2">
-      <div>
-        <img :src="post.user.avatar" class="rounded-full me-2 mb-1 h-10" />
-        <small>
-          {{ post.user.name }}
-        </small>
+      <div class="flex justify-between">
+        <div>
+          <img :src="post.user.avatar" class="rounded-full me-2 mb-1 h-10" />
+          <small>
+            {{ post.user.name }}
+          </small>
+        </div>
+        <div>
+          <span>{{ date }}</span>
+        </div>
       </div>
       <h5>{{ post.content }}</h5>
       <span class="flex justify-around mt-1">
@@ -23,6 +28,8 @@
 </template>
 
 <script>
+import moment from '@/node_modules/moment'
+
 export default {
   name: 'PostCardComponent',
   props: {
@@ -36,6 +43,11 @@ export default {
       stars: false,
       shares: false,
     }
+  },
+  computed: {
+    date() {
+      return moment(this.post.created_at).locale('fr').fromNow()
+    },
   },
   mounted() {
     this.stars = this.post.stars
