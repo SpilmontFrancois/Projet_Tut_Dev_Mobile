@@ -22,9 +22,10 @@ class PostCommentsController extends Controller
 
             if (!$postComment)
                 return $this->ressourceNotFound();
-                
-            return $this->success(new PostCommentsResource($postComment));
+
+            return $this->success(PostCommentsResource::collection($postComment));
         } catch (Exception $e) {
+            dd($e);
             return $this->ressourceNotFound();
         }
     }
