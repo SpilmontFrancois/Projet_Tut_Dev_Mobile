@@ -1,15 +1,8 @@
 <template>
   <div v-if="loaded">
-    <FeedCard
-      v-for="(post, index) in posts"
-      :key="index"
-      :post="post" />
+    <FeedCard v-for="(post, index) in posts" :key="index" :post="post" />
   </div>
-  <div v-else>
-    <div class="d-flex justify-content-center mt-2">
-      <div class="spinner-border" role="status" />
-    </div>
-  </div>
+  <Spinner v-else />
 </template>
 
 <script>

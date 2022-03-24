@@ -1,7 +1,10 @@
 <template>
   <div>
-    <PostCard :post="post" />
-    <PostComments :comments="post.comments" />
+    <div v-if="post">
+      <PostCard :post="post" />
+      <PostComments :comments="post.comments" />
+    </div>
+    <Spinner v-else />
   </div>
 </template>
 
