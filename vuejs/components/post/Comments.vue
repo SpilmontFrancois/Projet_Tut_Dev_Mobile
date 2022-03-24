@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <div v-for="comment in comments" :key="comment.post_id" class="card m-2">
+  <div class="mt-3">
+    <span class="ml-2">Réponses</span>
+    <div v-for="(comment, index) in comments" :key="index" class="card m-2">
       <div class="p-1 pb-2">
         <div class="flex justify-between">
-          <div>
+          <div class="mb-1">
             <img
               :src="comment.user.avatar"
-              class="rounded-full me-2 mb-1 h-10"
+              class="rounded-full me-2 h-10"
             />
             <small>
               {{ comment.user.name }}
