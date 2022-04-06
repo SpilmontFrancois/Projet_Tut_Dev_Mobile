@@ -129,9 +129,9 @@
                 <fa-icon
                   class="z-50 mt-3"
                   :icon="
-                    passwordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']
+                    passwordConfirmVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']
                   "
-                  @click="passwordVisible = !passwordVisible"
+                  @click="passwordConfirmVisible = !passwordConfirmVisible"
                 />
               </div>
             </div>
