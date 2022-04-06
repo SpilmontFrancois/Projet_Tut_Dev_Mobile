@@ -1,5 +1,5 @@
 <template>
-  <Nuxt class="bg-back" />
+  <Nuxt class="bg-back h-screen" />
 </template>
 
 <script>

@@ -2,8 +2,8 @@
   <div class="card m-2">
     <div class="p-1 pb-2">
       <div class="flex justify-between">
-        <div>
-          <img :src="post.user.avatar" class="rounded-full me-2 mb-1 h-10" />
+        <div class="mb-1">
+          <img :src="post.user.avatar" class="rounded-full me-2 h-10" />
           <small>
             {{ post.user.name }}
           </small>
