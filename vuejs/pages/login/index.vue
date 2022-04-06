@@ -38,6 +38,7 @@
         </div>
         <button
           class="rounded-3xl h-10 w-5/6 bg-dark-purple text-back mt-4 z-50"
+          @click="login"
         >
           Me connecter
         </button>
