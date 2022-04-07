@@ -1,0 +1,50 @@
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.content{
+    background-color: #B49FDF;
+}
+.post{
+    background-color: white;
+    margin-top: 2%;
+    border-radius: 5px;
+}
+
+.post-text{
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+
+.post-user-infos{
+    display: flex;
+    // flex-direction: column;
+
+    ion-avatar{
+        margin: 2%;
+    }
+    
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
+
+.post-content{
+    display: flex;
+}
+
+.interact{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    div{
+        display: flex;
+    }
+    .button{
+        margin-right: 20%;
+    }
+}
