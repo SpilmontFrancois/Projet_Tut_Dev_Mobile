@@ -213,8 +213,6 @@ export default {
         password: this.password,
       })
       localStorage.setItem('token', token.access_token)
-      this.$cookies.set('token', token.access_token)
-      console.log(this.$cookies.get('token'))
     },
   },
 }

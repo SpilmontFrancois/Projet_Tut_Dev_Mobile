@@ -86,13 +86,18 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$auth.loginWith('laravelSanctum', {
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      })
+    async login() {
+      try {
+        await this.$auth.loginWith('local', {
+          data: { email: this.email, password: this.password },
+        })
+        this.$router.push('/feed')
+      } catch (e) {
+        console.log(e)
+        this.$toast.error('Identifiants incorrects', {
+          duration: 5000,
+        })
+      }
     },
   },
 }
