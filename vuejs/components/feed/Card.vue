@@ -14,16 +14,30 @@
       </div>
       <h5>{{ post.content }}</h5>
       <span class="flex justify-around mt-1">
-        <div @click="star">
-          <fa-icon :icon="['fas', 'star']" class="purple" />
+        <div class="flex items-center" @click="star">
+          <div class="flex mr-1">
+            <fa-icon
+              :id="'star' + post.id"
+              :icon="['fas', 'star']"
+              class="text-purple absolute"
+            />
+            <fa-icon :icon="['fas', 'star']" class="text-purple relative" />
+          </div>
           {{ stars }}
         </div>
-        <div @click="share">
-          <fa-icon :icon="['fas', 'retweet']" class="purple" />
+        <div class="flex items-center" @click="share">
+          <div class="flex mr-1">
+            <fa-icon
+              :id="'share' + post.id"
+              :icon="['fas', 'retweet']"
+              class="text-purple absolute"
+            />
+            <fa-icon :icon="['fas', 'retweet']" class="text-purple relative" />
+          </div>
           {{ shares }}
         </div>
         <div @click="showPost">
-          <fa-icon :icon="['fas', 'comments']" class="purple" />
+          <fa-icon :icon="['fas', 'comments']" class="text-purple" />
           {{ post.comments }}
         </div>
       </span>
@@ -44,13 +58,23 @@ export default {
   },
   data() {
     return {
-      stars: false,
-      shares: false,
+      stars: null,
+      shares: null,
     }
   },
   computed: {
     date() {
       return moment(this.post.created_at).locale('fr').fromNow()
+    },
+  },
+  watch: {
+    post(oldVal, newVal) {
+      if (oldVal.stars !== newVal.stars) {
+        this.stars = newVal.stars
+      }
+      if (oldVal.shares !== newVal.shares) {
+        this.shares = newVal.shares
+      }
     },
   },
   created() {
@@ -61,7 +85,15 @@ export default {
     async star() {
       try {
         await this.$axios.$post(`/api/star/${this.post.id}`)
-        this.stars++
+        this.$emit('update')
+        document
+          .getElementById(`star${this.post.id}`)
+          .classList.add('animate-ping')
+        setTimeout(() => {
+          document
+            .getElementById(`star${this.post.id}`)
+            .classList.remove('animate-ping')
+        }, 500)
       } catch (error) {
         console.log(error)
       }
@@ -69,7 +101,15 @@ export default {
     async share() {
       try {
         await this.$axios.$post(`/api/share/${this.post.id}`)
-        this.shares++
+        this.$emit('update')
+        document
+          .getElementById(`share${this.post.id}`)
+          .classList.add('animate-ping')
+        setTimeout(() => {
+          document
+            .getElementById(`share${this.post.id}`)
+            .classList.remove('animate-ping')
+        }, 500)
       } catch (error) {
         console.log(error)
       }

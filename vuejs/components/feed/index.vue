@@ -1,6 +1,11 @@
 <template>
   <div v-if="loaded">
-    <FeedCard v-for="(post, index) in posts" :key="index" :post="post" />
+    <FeedCard
+      v-for="(post, index) in posts"
+      :key="index"
+      :post="post"
+      @update="fetchMessages"
+    />
   </div>
   <Spinner v-else />
 </template>
