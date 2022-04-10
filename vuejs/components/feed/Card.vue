@@ -68,7 +68,7 @@ export default {
     },
   },
   watch: {
-    post(oldVal, newVal) {
+    post(newVal, oldVal) {
       if (oldVal.stars !== newVal.stars) {
         this.stars = newVal.stars
       }
@@ -77,7 +77,7 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     this.stars = this.post.stars
     this.shares = this.post.shares
   },
