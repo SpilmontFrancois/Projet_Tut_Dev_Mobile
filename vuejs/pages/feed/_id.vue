@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div v-if="loaded">
-      <Post :post="post" />
+      <Post :post="post" @update="fetchPost" />
     </div>
     <Spinner v-else />
   </div>
@@ -14,6 +14,7 @@ export default {
     return {
       post: null,
       loaded: false,
+      comments: null,
     }
   },
   created() {
@@ -25,13 +26,15 @@ export default {
         `/api/posts/${this.$route.params.id}`
       )
       this.post = data
-      this.fetchPostComments()
+      if (!this.comments) this.fetchPostComments()
+      else this.post.comments = this.comments
     },
     async fetchPostComments() {
       const { data } = await this.$axios.$get(
         `/api/post_comments/${this.$route.params.id}`
       )
       this.post.comments = data
+      this.comments = data
       this.loaded = true
     },
   },

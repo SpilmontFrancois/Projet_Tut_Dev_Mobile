@@ -4,7 +4,7 @@
       v-for="(post, index) in posts"
       :key="index"
       :post="post"
-      @update="fetchMessages"
+      @update="fetchPosts"
     />
   </div>
   <Spinner v-else />
@@ -20,10 +20,10 @@ export default {
     }
   },
   mounted() {
-    this.fetchMessages()
+    this.fetchPosts()
   },
   methods: {
-    async fetchMessages() {
+    async fetchPosts() {
       const { data } = await this.$axios.$get('/api/posts')
       this.posts = data
       this.loaded = true
