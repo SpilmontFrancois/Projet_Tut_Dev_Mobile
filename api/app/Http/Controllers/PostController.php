@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User2Post;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -69,7 +70,20 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($id);
-            $post->update(['shares' => $post->shares + 1]);
+
+            try {
+                $user2post = User2Post::where('user_id', $request->user()->id)
+                    ->where('post_id', $id)
+                    ->firstOrFail();
+                $user2post->update(['shared' => !$user2post->shared]);
+            } catch (Exception $e) {
+                User2Post::create([
+                    'user_id' => $request->user()->id,
+                    'post_id' => $id,
+                    'stared' => false,
+                    'shared' => true,
+                ]);
+            }
 
             return $this->success(new PostResource($post));
         } catch (Exception $e) {
@@ -81,7 +95,20 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($id);
-            $post->update(['stars' => $post->stars + 1]);
+
+            try {
+                $user2post = User2Post::where('user_id', $request->user()->id)
+                    ->where('post_id', $id)
+                    ->firstOrFail();
+                $user2post->update(['stared' => !$user2post->stared]);
+            } catch (Exception $e) {
+                User2Post::create([
+                    'user_id' => $request->user()->id,
+                    'post_id' => $id,
+                    'stared' => true,
+                    'shared' => false,
+                ]);
+            }
 
             return $this->success(new PostResource($post));
         } catch (Exception $e) {
