@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('post_comments', PostCommentsController::class);
 
-    Route::post('/share/{id}', [PostController::class, 'share']);
-    Route::post('/star/{id}', [PostController::class, 'star']);
+    Route::post('/share/{post_id}', [PostController::class, 'share']);
+    Route::post('/star/{post_id}', [PostController::class, 'star']);
 
     Route::get('/me', [UserController::class, 'me']);
 });

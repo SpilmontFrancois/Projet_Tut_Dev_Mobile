@@ -5,10 +5,7 @@
       <div class="p-1 pb-2">
         <div class="flex justify-between">
           <div class="mb-1">
-            <img
-              :src="comment.user.avatar"
-              class="rounded-full me-2 h-10"
-            />
+            <img :src="comment.user.avatar" class="rounded-full me-2 h-10" />
             <small>
               {{ comment.user.name }}
             </small>
@@ -31,7 +28,8 @@ export default {
   props: {
     comments: {
       type: Array,
-      required: true,
+      nullable: true,
+      default: () => [],
     },
   },
   methods: {

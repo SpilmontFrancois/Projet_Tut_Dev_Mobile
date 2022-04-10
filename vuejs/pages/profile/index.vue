@@ -33,9 +33,8 @@ export default {
   },
   methods: {
     async fetchUser() {
-      // TODO : change user id to current user id
-      const { data } = await this.$axios.$get('/api/users/1')
-      this.user = data.data
+      const data = await this.$axios.$get('/api/me')
+      this.user = data
     },
   },
 }

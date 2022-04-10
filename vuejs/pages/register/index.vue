@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="flex pt-2">
-      <fa-icon :icon="['fas', 'angle-left']" size="2x" class="mx-5" @click="$router.push('/')"/>
+      <fa-icon
+        :icon="['fas', 'angle-left']"
+        size="2x"
+        class="mx-5"
+        @click="$router.push('/')"
+      />
       <h1 class="text-3xl">Inscription</h1>
     </div>
     <div class="flex items-center justify-center">
@@ -9,6 +14,27 @@
         <div class="fixed z-50 bottom-1/4 left-0 w-full">
           <div class="flex flex-col items-center justify-center w-full">
             <div class="rounded-3xl h-10 w-5/6 bg-back">
+              <input
+                v-model="username"
+                type="text"
+                class="opacity-0 fixed cursor-text w-5/6 h-full"
+                required
+              />
+              <span
+                class="
+                  border-b-2 border-gray
+                  w-5/6
+                  flex
+                  justify-center
+                  ml-7
+                  mt-1
+                  h-7
+                "
+              >
+                {{ username }}
+              </span>
+            </div>
+            <div class="rounded-3xl h-10 w-5/6 bg-back mt-4">
               <input
                 v-model="firstname"
                 type="text"
@@ -129,14 +155,17 @@
                 <fa-icon
                   class="z-50 mt-3"
                   :icon="
-                    passwordVisible ? ['fas', 'eye-slash'] : ['fas', 'eye']
+                    passwordConfirmVisible
+                      ? ['fas', 'eye-slash']
+                      : ['fas', 'eye']
                   "
-                  @click="passwordVisible = !passwordVisible"
+                  @click="passwordConfirmVisible = !passwordConfirmVisible"
                 />
               </div>
             </div>
             <button
               class="rounded-3xl h-10 w-5/6 bg-dark-purple text-back mt-8 z-50"
+              @click="register"
             >
               Créer mon compte
             </button>
@@ -176,16 +205,14 @@ export default {
       if (this.password !== this.password_confirmation) {
         return alert('Les mots de passe ne correspondent pas')
       }
-      const token = await this.axios.post('/api/register', {
+      const token = await this.$axios.$post('/api/register', {
         username: this.username,
         firstname: this.firstname,
         lastname: this.lastname,
         email: this.email,
         password: this.password,
       })
-      localStorage.setItem('token', token.data.access_token)
-      this.$cookies.set('token', token.data.access_token)
-      console.log(this.$cookies.get('token'))
+      localStorage.setItem('token', token.access_token)
     },
   },
 }
