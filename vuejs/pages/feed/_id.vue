@@ -1,9 +1,32 @@
 <template>
   <div>
     <div v-if="loaded">
-      <Post :post="post" @update="fetchPost" />
+      <Post
+        :post="post"
+        :show-comment="showComment"
+        @update="fetchPost"
+        @updateComment="fetchPostComments"
+        @hide="showComment = false"
+      />
     </div>
     <Spinner v-else />
+    <div
+      class="
+        fixed
+        right-5
+        bottom-5
+        bg-dark-purple
+        rounded-full
+        h-16
+        w-16
+        flex
+        items-center
+        justify-center
+      "
+      @click="showComment = true"
+    >
+      <fa-icon :icon="['fas', 'pen']" class="text-2xl" color="white" />
+    </div>
   </div>
 </template>
 
@@ -14,6 +37,7 @@ export default {
       post: null,
       loaded: false,
       comments: null,
+      showComment: false,
     }
   },
   created() {

@@ -3,6 +3,11 @@
     <div v-if="post">
       <PostCard :post="post" @update="$emit('update')" />
       <PostComments :comments="post.comments" />
+      <PostNewComment
+        v-if="showComment"
+        @hide="$emit('hide')"
+        @updateComment="$emit('updateComment')"
+      />
     </div>
     <Spinner v-else />
   </div>
@@ -14,6 +19,10 @@ export default {
   props: {
     post: {
       type: Object,
+      required: true,
+    },
+    showComment: {
+      type: Boolean,
       required: true,
     },
   },
