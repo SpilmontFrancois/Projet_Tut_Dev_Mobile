@@ -12,7 +12,7 @@ class PostCommentsController extends Controller
 {
     public function index()
     {
-        return $this->success(PostCommentsResource::collection(PostComments::all()));
+        return $this->success(PostCommentsResource::collection(PostComments::all()->sortByDesc('created_at')));
     }
 
     public function show(Request $request, int $id): JsonResponse

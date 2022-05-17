@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->success(PostResource::collection(Post::all()));
+        return $this->success(PostResource::collection(Post::all()->sortByDesc('created_at')));
     }
 
     public function show(Request $request, int $id): JsonResponse
