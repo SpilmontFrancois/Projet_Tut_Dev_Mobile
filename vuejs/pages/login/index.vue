@@ -70,7 +70,6 @@
 </template>
 
 <script>
-// TODO : finir la page de login
 export default {
   name: 'LoginPage',
   layout: 'auth',
