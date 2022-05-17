@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="min-h-screen bg-back">
     <NavBar />
-    <Nuxt class="bg-back h-screen" />
+    <Nuxt />
   </div>
 </template>
 
