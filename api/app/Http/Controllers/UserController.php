@@ -80,7 +80,7 @@ class UserController extends Controller
 
     public function me()
     {
-        return response()->json(Auth::user());
+        return response()->json(["user" => Auth::user()]);
     }
 
     public function register(Request $request)

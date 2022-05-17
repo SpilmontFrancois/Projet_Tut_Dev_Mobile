@@ -18,7 +18,7 @@ class PostCommentsController extends Controller
     public function show(Request $request, int $id): JsonResponse
     {
         try {
-            $postComment = PostComments::where('post_id', $id)->get();
+            $postComment = PostComments::where('post_id', $id)->get()->sortByDesc('created_at');
 
             if (!$postComment)
                 return $this->ressourceNotFound();

@@ -179,6 +179,7 @@
 <script>
 export default {
   name: 'RegisterPage',
+  layout: 'auth',
   auth: 'guest',
   data() {
     return {

@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-2">
+  <div class="card mx-2">
     <div class="p-1 pb-2">
       <div class="flex justify-between">
         <div class="mb-1">
