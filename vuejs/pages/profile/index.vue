@@ -149,9 +149,8 @@ export default {
     this.fetchUser()
   },
   methods: {
-    async fetchUser() {
-      const data = await this.$axios.$get('/api/me')
-      this.user = data
+    fetchUser() {
+      this.user = this.$auth.user
     },
     async updateUser() {
       const { data } = await this.$axios.$put(
