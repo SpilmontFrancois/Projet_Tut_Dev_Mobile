@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded">
+  <div v-if="loaded" class="space-y-2 py-2">
     <FeedCard
       v-for="(post, index) in posts"
       :key="index"

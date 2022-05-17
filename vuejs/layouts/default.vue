@@ -1,5 +1,8 @@
 <template>
-  <Nuxt class="bg-back h-screen" />
+  <div>
+    <NavBar />
+    <Nuxt class="bg-back h-screen" />
+  </div>
 </template>
 
 <script>

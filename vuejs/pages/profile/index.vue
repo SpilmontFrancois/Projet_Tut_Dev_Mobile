@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <NavBar />
-    <div class="card m-4 rounded-card p-3">
+  <div class="pt-2">
+    <div class="card mx-2 rounded-card p-3">
       <h1 class="text-xl"><strong>Profil</strong></h1>
       <div class="flex">
         <!-- Avatar -->

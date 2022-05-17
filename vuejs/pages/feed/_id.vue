@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <div v-if="loaded">
       <Post :post="post" @update="fetchPost" />
     </div>
