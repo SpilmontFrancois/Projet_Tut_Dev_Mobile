@@ -17,7 +17,7 @@
         <div class="flex items-center" @click="star">
           <div class="flex mr-1">
             <fa-icon
-              id="star"
+              ref="star"
               :icon="['fas', 'star']"
               class="text-purple absolute"
             />
@@ -28,7 +28,7 @@
         <div class="flex items-center" @click="share">
           <div class="flex mr-1">
             <fa-icon
-              id="share"
+              ref="share"
               :icon="['fas', 'retweet']"
               class="text-purple absolute"
             />
@@ -82,9 +82,9 @@ export default {
       try {
         await this.$axios.$post(`/api/star/${this.post.id}`)
         this.$emit('update')
-        document.getElementById('star').classList.add('animate-ping')
+        this.$refs.star.classList.add('animate-ping')
         setTimeout(() => {
-          document.getElementById('star').classList.remove('animate-ping')
+          this.$refs.star.classList.remove('animate-ping')
         }, 500)
       } catch (error) {
         console.log(error)
@@ -94,9 +94,9 @@ export default {
       try {
         await this.$axios.$post(`/api/share/${this.post.id}`)
         this.$emit('update')
-        document.getElementById('share').classList.add('animate-ping')
+        this.$refs.share.classList.add('animate-ping')
         setTimeout(() => {
-          document.getElementById('share').classList.remove('animate-ping')
+          this.$refs.share.classList.remove('animate-ping')
         }, 500)
       } catch (error) {
         console.log(error)

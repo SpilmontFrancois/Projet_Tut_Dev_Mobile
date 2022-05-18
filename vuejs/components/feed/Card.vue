@@ -17,7 +17,7 @@
         <div class="flex items-center" @click="star">
           <div class="flex mr-1">
             <fa-icon
-              :id="'star' + post.id"
+              :ref="'star' + post.id"
               :icon="['fas', 'star']"
               class="text-purple absolute"
             />
@@ -28,7 +28,7 @@
         <div class="flex items-center" @click="share">
           <div class="flex mr-1">
             <fa-icon
-              :id="'share' + post.id"
+              :ref="'share' + post.id"
               :icon="['fas', 'retweet']"
               class="text-purple absolute"
             />
@@ -83,36 +83,20 @@ export default {
   },
   methods: {
     async star() {
-      try {
-        await this.$axios.$post(`/api/star/${this.post.id}`)
-        this.$emit('update')
-        document
-          .getElementById(`star${this.post.id}`)
-          .classList.add('animate-ping')
-        setTimeout(() => {
-          document
-            .getElementById(`star${this.post.id}`)
-            .classList.remove('animate-ping')
-        }, 500)
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$axios.$post(`/api/star/${this.post.id}`)
+      this.$emit('update')
+      this.$refs[`star${this.post.id}`].classList.add('animate-ping')
+      setTimeout(() => {
+        this.$refs[`star${this.post.id}`].classList.remove('animate-ping')
+      }, 500)
     },
     async share() {
-      try {
-        await this.$axios.$post(`/api/share/${this.post.id}`)
-        this.$emit('update')
-        document
-          .getElementById(`share${this.post.id}`)
-          .classList.add('animate-ping')
-        setTimeout(() => {
-          document
-            .getElementById(`share${this.post.id}`)
-            .classList.remove('animate-ping')
-        }, 500)
-      } catch (error) {
-        console.log(error)
-      }
+      await this.$axios.$post(`/api/share/${this.post.id}`)
+      this.$emit('update')
+      this.$refs[`share${this.post.id}`].classList.add('animate-ping')
+      setTimeout(() => {
+        this.$refs[`share${this.post.id}`].classList.remove('animate-ping')
+      }, 500)
     },
     showPost() {
       this.$router.push(`/feed/${this.post.id}`)
