@@ -150,7 +150,7 @@ class LoginState extends State<Login> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Register()));
+                                  builder: (context) => const Register()));
                         },
                         child: const Text(
                           'Create new Account',

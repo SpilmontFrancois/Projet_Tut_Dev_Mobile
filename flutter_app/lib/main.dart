@@ -50,7 +50,7 @@ class CheckAuthState extends State<CheckAuth> {
     if (isAuth) {
       child = Home();
     } else {
-      child = Login();
+      child = const Login();
     }
     return Scaffold(
       body: child,
