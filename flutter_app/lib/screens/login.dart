@@ -6,16 +6,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/screens/register.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
-  _LoginState createState() => _LoginState();
+  LoginState createState() => LoginState();
 }
 
-class _LoginState extends State<Login> {
+class LoginState extends State<Login> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  var email;
-  var password;
+  late String email;
+  late String password;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   _showMsg(msg) {
     final snackBar = SnackBar(
       content: Text(msg),
@@ -47,7 +50,7 @@ class _LoginState extends State<Login> {
                     Card(
                       elevation: 4.0,
                       color: Colors.white,
-                      margin: EdgeInsets.only(left: 20, right: 20),
+                      margin: const EdgeInsets.only(left: 20, right: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
@@ -58,10 +61,11 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.email,
                                     color: Colors.grey,
@@ -81,11 +85,12 @@ class _LoginState extends State<Login> {
                                 },
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.vpn_key,
                                     color: Colors.grey,
@@ -107,13 +112,23 @@ class _LoginState extends State<Login> {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: FlatButton(
+                                  color: Colors.teal,
+                                  disabledColor: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _login();
+                                    }
+                                  },
                                   child: Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 8, bottom: 8, left: 10, right: 10),
                                     child: Text(
                                       _isLoading ? 'Proccessing...' : 'Login',
                                       textDirection: TextDirection.ltr,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15.0,
                                         decoration: TextDecoration.none,
@@ -121,16 +136,6 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                   ),
-                                  color: Colors.teal,
-                                  disabledColor: Colors.grey,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(20.0)),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _login();
-                                    }
-                                  },
                                 ),
                               ),
                             ],
@@ -144,10 +149,10 @@ class _LoginState extends State<Login> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              new MaterialPageRoute(
+                              MaterialPageRoute(
                                   builder: (context) => Register()));
                         },
-                        child: Text(
+                        child: const Text(
                           'Create new Account',
                           style: TextStyle(
                             color: Colors.white,
@@ -186,7 +191,7 @@ class _LoginState extends State<Login> {
 
       Navigator.push(
         context,
-        new MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     } else {
       _showMsg("Login failed");

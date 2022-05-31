@@ -3,13 +3,15 @@ import 'package:flutter_app/screens/login.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(FlutterApp());
+void main() => runApp(const FlutterApp());
 
 class FlutterApp extends StatelessWidget {
+  const FlutterApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Test App',
       debugShowCheckedModeBanner: false,
       home: CheckAuth(),
@@ -18,11 +20,13 @@ class FlutterApp extends StatelessWidget {
 }
 
 class CheckAuth extends StatefulWidget {
+  const CheckAuth({Key? key}) : super(key: key);
+
   @override
-  _CheckAuthState createState() => _CheckAuthState();
+  CheckAuthState createState() => CheckAuthState();
 }
 
-class _CheckAuthState extends State<CheckAuth> {
+class CheckAuthState extends State<CheckAuth> {
   bool isAuth = false;
   @override
   void initState() {

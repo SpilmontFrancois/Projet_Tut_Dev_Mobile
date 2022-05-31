@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Test App'),
+        title: const Text('Test App'),
         backgroundColor: Colors.teal,
       ),
       body: Padding(
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Text(
               'Hi, $username',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Center(
               child: RaisedButton(
@@ -50,9 +50,9 @@ class _HomeState extends State<Home> {
                   logout();
                 },
                 color: Colors.teal,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Text('Logout'),
+                child: const Text('Logout'),
               ),
             ),
           ],

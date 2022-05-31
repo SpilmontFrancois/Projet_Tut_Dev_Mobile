@@ -6,18 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/screens/login.dart';
 
 class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
+
   @override
-  _RegisterState createState() => _RegisterState();
+  RegisterState createState() => RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class RegisterState extends State<Register> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  var username;
-  var firstname;
-  var lastname;
-  var email;
-  var password;
+  late String username;
+  late String firstname;
+  late String lastname;
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -34,7 +37,7 @@ class _RegisterState extends State<Register> {
                     Card(
                       elevation: 4.0,
                       color: Colors.white,
-                      margin: EdgeInsets.only(left: 20, right: 20),
+                      margin: const EdgeInsets.only(left: 20, right: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
@@ -45,10 +48,11 @@ class _RegisterState extends State<Register> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color: Colors.grey,
@@ -68,10 +72,11 @@ class _RegisterState extends State<Register> {
                                 },
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color: Colors.grey,
@@ -91,10 +96,11 @@ class _RegisterState extends State<Register> {
                                 },
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color: Colors.grey,
@@ -114,10 +120,11 @@ class _RegisterState extends State<Register> {
                                 },
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.email,
                                     color: Colors.grey,
@@ -137,11 +144,12 @@ class _RegisterState extends State<Register> {
                                 },
                               ),
                               TextFormField(
-                                style: TextStyle(color: Color(0xFF000000)),
-                                cursorColor: Color(0xFF9b9b9b),
+                                style:
+                                    const TextStyle(color: Color(0xFF000000)),
+                                cursorColor: const Color(0xFF9b9b9b),
                                 keyboardType: TextInputType.text,
                                 obscureText: true,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   prefixIcon: Icon(
                                     Icons.vpn_key,
                                     color: Colors.grey,
@@ -163,15 +171,25 @@ class _RegisterState extends State<Register> {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: FlatButton(
+                                  color: Colors.teal,
+                                  disabledColor: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _register();
+                                    }
+                                  },
                                   child: Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         top: 8, bottom: 8, left: 10, right: 10),
                                     child: Text(
                                       _isLoading
                                           ? 'Proccessing...'
                                           : 'Register',
                                       textDirection: TextDirection.ltr,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15.0,
                                         decoration: TextDecoration.none,
@@ -179,16 +197,6 @@ class _RegisterState extends State<Register> {
                                       ),
                                     ),
                                   ),
-                                  color: Colors.teal,
-                                  disabledColor: Colors.grey,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(20.0)),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _register();
-                                    }
-                                  },
                                 ),
                               ),
                             ],
@@ -202,10 +210,10 @@ class _RegisterState extends State<Register> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              new MaterialPageRoute(
-                                  builder: (context) => Login()));
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()));
                         },
-                        child: Text(
+                        child: const Text(
                           'Already Have an Account',
                           style: TextStyle(
                             color: Colors.white,
@@ -250,7 +258,7 @@ class _RegisterState extends State<Register> {
       localStorage.setString('user', json.encode(bodyUser['user']));
       Navigator.push(
         context,
-        new MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     }
 

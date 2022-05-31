@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
   final String _url = 'http://192.168.1.106:8000/api';
-  var token;
+  String token = '';
 
   _getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -37,6 +37,6 @@ class Network {
   _setHeaders() => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
+        if (token != '') 'Authorization': 'Bearer $token'
       };
 }
