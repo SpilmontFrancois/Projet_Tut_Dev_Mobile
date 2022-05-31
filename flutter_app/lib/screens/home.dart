@@ -5,6 +5,8 @@ import 'package:flutter_app/network_utils/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   HomeState createState() => HomeState();
 }
@@ -44,14 +46,15 @@ class HomeState extends State<Home> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             Center(
-              child: RaisedButton(
-                elevation: 10,
+              child: ElevatedButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
                 onPressed: () {
                   logout();
                 },
-                color: Colors.teal,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: const Text('Logout'),
               ),
             ),
@@ -63,7 +66,6 @@ class HomeState extends State<Home> {
 
   void logout() async {
     var res = await Network().postData('/logout');
-    var body = json.decode(res.body);
     if (res.statusCode == 200) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.remove('user');

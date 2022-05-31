@@ -48,7 +48,7 @@ class CheckAuthState extends State<CheckAuth> {
   Widget build(BuildContext context) {
     Widget child;
     if (isAuth) {
-      child = Home();
+      child = const Home();
     } else {
       child = const Login();
     }

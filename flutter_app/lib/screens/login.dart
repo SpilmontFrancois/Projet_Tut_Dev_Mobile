@@ -29,7 +29,7 @@ class LoginState extends State<Login> {
         },
       ),
     );
-    _scaffoldKey.currentState?.showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -111,12 +111,13 @@ class LoginState extends State<Login> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: FlatButton(
-                                  color: Colors.teal,
-                                  disabledColor: Colors.grey,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.teal,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0)),
+                                  ),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       _login();
