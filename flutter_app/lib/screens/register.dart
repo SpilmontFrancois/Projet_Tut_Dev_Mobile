@@ -243,7 +243,7 @@ class RegisterState extends State<Register> {
                         padding: EdgeInsets.only(
                             top: 5, bottom: 5, left: 10, right: 10),
                         child: Text(
-                          'Me connecter',
+                          'J\'ai déjà un compte',
                           textDirection: TextDirection.ltr,
                           style: TextStyle(
                             color: Color(0xFF2A194D),
