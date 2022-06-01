@@ -34,7 +34,7 @@ class HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Test App'),
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFFF7F3FE),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -48,7 +48,7 @@ class HomeState extends State<Home> {
             Center(
               child: ElevatedButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: const Color(0xFF2A194D),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
                 ),
