@@ -51,6 +51,8 @@ class LoginState extends State<Login> {
                 Card(
                   elevation: 4.0,
                   color: const Color(0xFF7C49E9),
+                  shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Form(
