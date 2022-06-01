@@ -65,11 +65,11 @@ class LoginState extends State<Login> {
                             decoration: const InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: "Adresse email",
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30)),
                               ),
+                              hintText: "Adresse email",
                               hintStyle: TextStyle(
                                   color: Color(0xFFC4C4C4),
                                   fontSize: 15,
@@ -94,11 +94,11 @@ class LoginState extends State<Login> {
                             decoration: const InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: "Mot de passe",
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30)),
                               ),
+                              hintText: "Mot de passe",
                               hintStyle: TextStyle(
                                   color: Color(0xFFC4C4C4),
                                   fontSize: 15,
