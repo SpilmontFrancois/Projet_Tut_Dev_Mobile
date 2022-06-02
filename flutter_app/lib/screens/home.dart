@@ -14,25 +14,13 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  String username = '';
   List<dynamic> feed = [];
 
   @override
   void initState() {
     Moment.setLocaleGlobally(LocaleFr());
-    _loadUserData();
     _loadFeed();
     super.initState();
-  }
-
-  _loadUserData() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var user = jsonDecode(localStorage.getString('user')!);
-    if (user != null) {
-      setState(() {
-        username = user['username'];
-      });
-    }
   }
 
   _loadFeed() async {
