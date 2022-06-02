@@ -107,45 +107,99 @@ class HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder: 'user.png',
+                                    image: feed[index]['user']['avatar'],
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                ),
+                                Text(
+                                  Moment.now().from(DateTime.parse(
+                                      feed[index]['created_at'])),
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ]),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  feed[index]['user']['name'],
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ]),
+                          const Padding(padding: EdgeInsets.only(top: 15)),
+                          Row(
                             children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(30),
-                                    child: FadeInImage.assetNetwork(
-                                      placeholder: 'user.png',
-                                      image: feed[index]['user']['avatar'],
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  ),
-                                  Text(
-                                    feed[index]['user']['name'] ?? '',
-                                  ),
-                                ],
-                              ),
                               Text(
-                                Moment.now().from(
-                                    DateTime.parse(feed[index]['created_at'])),
+                                feed[index]['content'],
                                 style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
                                 ),
                               ),
                             ],
                           ),
-                          Text(
-                            feed[index]['content'],
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            feed[index]['stars'].toString(),
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              TextButton.icon(
+                                icon: const Icon(
+                                  Icons.star_border_sharp,
+                                  color: Color(0xFF7C49E9),
+                                ),
+                                label: Text(
+                                  feed[index]['stars'].toString(),
+                                  style: const TextStyle(
+                                    color: Color(0xFF7C49E9),
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  star(feed[index]['id']);
+                                },
+                              ),
+                              TextButton.icon(
+                                icon: const Icon(
+                                  Icons.share_outlined,
+                                  color: Color(0xFF7C49E9),
+                                ),
+                                label: Text(
+                                  feed[index]['shares'].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xFF7C49E9),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  share(feed[index]['id']);
+                                },
+                              ),
+                              TextButton.icon(
+                                icon: const Icon(
+                                  Icons.chat_bubble_outline_rounded,
+                                  color: Color(0xFF7C49E9),
+                                ),
+                                label: Text(
+                                  feed[index]['comments'].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Color(0xFF7C49E9),
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -167,6 +221,20 @@ class HomeState extends State<Home> {
       localStorage.remove('user');
       localStorage.remove('token');
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    }
+  }
+
+  void star(id) async {
+    var res = await Network().postData('/star/$id');
+    if (res.statusCode == 200) {
+      _loadFeed();
+    }
+  }
+
+  void share(id) async {
+    var res = await Network().postData('/share/$id');
+    if (res.statusCode == 200) {
+      _loadFeed();
     }
   }
 }
