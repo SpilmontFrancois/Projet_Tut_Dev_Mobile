@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/login.dart';
 import 'package:flutter_app/network_utils/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_moment/simple_moment.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,9 +14,13 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   String username = '';
+  List<dynamic> feed = [];
+
   @override
   void initState() {
+    Moment.setLocaleGlobally(LocaleFr());
     _loadUserData();
+    _loadFeed();
     super.initState();
   }
 
@@ -29,33 +34,124 @@ class HomeState extends State<Home> {
     }
   }
 
+  _loadFeed() async {
+    var response = await Network().getData('/posts');
+    var jsonData = json.decode('[${response.body}]');
+    setState(() {
+      feed = jsonData[0]['data'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test App'),
-        backgroundColor: const Color(0xFFF7F3FE),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Hi, $username',
-              style: const TextStyle(fontWeight: FontWeight.bold),
+        actions: <Widget>[
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.home),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Home()),
+                  );
+                },
+              ),
             ),
-            Center(
-              child: ElevatedButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFF2A194D),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.person),
+                onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const Profile()),
+                  // );
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.logout),
                 onPressed: () {
                   logout();
                 },
-                child: const Text('Logout'),
+              ),
+            ),
+          ),
+        ],
+        backgroundColor: const Color(0xFF7C49E9),
+      ),
+      body: Container(
+        color: const Color(0xFFF7F3FE),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemCount: feed.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 4.0,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder: 'user.png',
+                                      image: feed[index]['user']['avatar'],
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
+                                  Text(
+                                    feed[index]['user']['name'] ?? '',
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                Moment.now().from(
+                                    DateTime.parse(feed[index]['created_at'])),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            feed[index]['content'],
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            feed[index]['stars'].toString(),
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
