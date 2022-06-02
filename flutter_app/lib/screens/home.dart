@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/login.dart';
 import 'package:flutter_app/network_utils/api.dart';
+import 'package:flutter_app/screens/post.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_moment/simple_moment.dart';
 
@@ -197,7 +198,14 @@ class HomeState extends State<Home> {
                                     color: Color(0xFF7C49E9),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Post(id: feed[index]['id'])),
+                                  );
+                                },
                               ),
                             ],
                           ),
