@@ -50,7 +50,6 @@ class RegisterState extends State<Register> {
                               style: const TextStyle(color: Color(0xFF2A194D)),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              obscureText: true,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -79,7 +78,6 @@ class RegisterState extends State<Register> {
                               style: const TextStyle(color: Color(0xFF2A194D)),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              obscureText: true,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -108,7 +106,6 @@ class RegisterState extends State<Register> {
                               style: const TextStyle(color: Color(0xFF2A194D)),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              obscureText: true,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -137,7 +134,6 @@ class RegisterState extends State<Register> {
                               style: const TextStyle(color: Color(0xFF2A194D)),
                               cursorColor: Colors.white,
                               keyboardType: TextInputType.text,
-                              obscureText: true,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
