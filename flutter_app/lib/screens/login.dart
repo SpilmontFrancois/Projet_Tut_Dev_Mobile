@@ -129,7 +129,7 @@ class LoginState extends State<Login> {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 5, bottom: 5, left: 10, right: 10),
+                                    top: 10, bottom: 10, left: 10, right: 10),
                                 child: Text(
                                   _isLoading ? 'Connexion...' : 'Me connecter',
                                   textDirection: TextDirection.ltr,

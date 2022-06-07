@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/network_utils/api.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/screens/login.dart';
+import 'package:flutter_app/screens/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_moment/simple_moment.dart';
 
@@ -66,10 +67,10 @@ class PostState extends State<Post> {
               child: IconButton(
                 icon: const Icon(Icons.person),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const Profile()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Profile()),
+                  );
                 },
               ),
             ),
