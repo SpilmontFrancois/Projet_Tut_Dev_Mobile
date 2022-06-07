@@ -191,7 +191,7 @@ class HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            Post(id: feed[index]['id'])),
+                                            Post(post: feed[index])),
                                   );
                                 },
                               ),
