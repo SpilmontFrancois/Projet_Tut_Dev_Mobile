@@ -8,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_moment/simple_moment.dart';
 
 class Post extends StatefulWidget {
-  const Post({Key? key, required this.id}) : super(key: key);
+  const Post({Key? key, required this.post}) : super(key: key);
 
-  final int id;
+  final dynamic post;
 
   @override
   PostState createState() => PostState();
@@ -18,19 +18,24 @@ class Post extends StatefulWidget {
 
 class PostState extends State<Post> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  dynamic post = [];
+  late dynamic comments;
+  late int stars;
+  late int shares;
 
   @override
   void initState() {
-    _loadPost();
+    stars = widget.post['stars'];
+    shares = widget.post['shares'];
+    _loadPostComments();
     super.initState();
   }
 
-  _loadPost() async {
-    var response = await Network().getData('/posts/${widget.id}');
+  _loadPostComments() async {
+    var response =
+        await Network().getData('/post_comments/${widget.post['id']}');
     var jsonData = json.decode('[${response.body}]');
     setState(() {
-      post = jsonData[0]['data'];
+      comments = jsonData[0]['data'];
     });
   }
 
@@ -102,14 +107,14 @@ class PostState extends State<Post> {
                             borderRadius: BorderRadius.circular(30),
                             child: FadeInImage.assetNetwork(
                               placeholder: 'user.png',
-                              image: post['user']['avatar'],
+                              image: widget.post['user']['avatar'],
                               width: 50,
                               height: 50,
                             ),
                           ),
                           Text(
-                            Moment.now()
-                                .from(DateTime.parse(post['created_at'])),
+                            Moment.now().from(
+                                DateTime.parse(widget.post['created_at'])),
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.normal,
@@ -121,7 +126,7 @@ class PostState extends State<Post> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            post['user']['name'],
+                            widget.post['user']['name'],
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -132,7 +137,7 @@ class PostState extends State<Post> {
                     Row(
                       children: <Widget>[
                         Text(
-                          post['content'],
+                          widget.post['content'],
                           style: const TextStyle(
                             fontSize: 18,
                           ),
@@ -148,14 +153,14 @@ class PostState extends State<Post> {
                             color: Color(0xFF7C49E9),
                           ),
                           label: Text(
-                            post['stars'].toString(),
+                            stars.toString(),
                             style: const TextStyle(
                               color: Color(0xFF7C49E9),
                               fontSize: 20,
                             ),
                           ),
                           onPressed: () {
-                            star(post['id']);
+                            star(widget.post['id']);
                           },
                         ),
                         TextButton.icon(
@@ -164,34 +169,14 @@ class PostState extends State<Post> {
                             color: Color(0xFF7C49E9),
                           ),
                           label: Text(
-                            post['shares'].toString(),
+                            shares.toString(),
                             style: const TextStyle(
                               fontSize: 20,
                               color: Color(0xFF7C49E9),
                             ),
                           ),
                           onPressed: () {
-                            share(post['id']);
-                          },
-                        ),
-                        TextButton.icon(
-                          icon: const Icon(
-                            Icons.chat_bubble_outline_rounded,
-                            color: Color(0xFF7C49E9),
-                          ),
-                          label: Text(
-                            post['comments'].toString(),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Color(0xFF7C49E9),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Post(id: post['id'])),
-                            );
+                            share(widget.post['id']);
                           },
                         ),
                       ],
@@ -200,6 +185,23 @@ class PostState extends State<Post> {
                 ),
               ),
             ),
+            Container(
+                color: const Color(0xFFF7F3FE),
+                child: Column(children: <Widget>[
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const <Widget>[
+                      Text(
+                        'Commentaires',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ]))
           ],
         ),
       ),
@@ -219,14 +221,18 @@ class PostState extends State<Post> {
   void star(id) async {
     var res = await Network().postData('/star/$id');
     if (res.statusCode == 200) {
-      _loadPost();
+      setState(() {
+        stars = json.decode('[${res.body}]')[0]['data']['stars'];
+      });
     }
   }
 
   void share(id) async {
     var res = await Network().postData('/share/$id');
     if (res.statusCode == 200) {
-      _loadPost();
+      setState(() {
+        shares = json.decode('[${res.body}]')[0]['data']['shares'];
+      });
     }
   }
 }
