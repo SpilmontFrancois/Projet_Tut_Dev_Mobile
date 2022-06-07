@@ -18,7 +18,7 @@ class Post extends StatefulWidget {
 
 class PostState extends State<Post> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  late dynamic comments;
+  late dynamic comments = [];
   late int stars;
   late int shares;
 
@@ -185,23 +185,83 @@ class PostState extends State<Post> {
                 ),
               ),
             ),
-            Container(
-                color: const Color(0xFFF7F3FE),
-                child: Column(children: <Widget>[
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const <Widget>[
-                      Text(
-                        'Commentaires',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const <Widget>[
+                Text(
+                  'Commentaires',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: comments.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 4.0,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder: 'user.png',
+                                      image: comments[index]['user']['avatar'],
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
+                                  Text(
+                                    Moment.now().from(DateTime.parse(
+                                        comments[index]['created_at'])),
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ]),
+                            const Padding(padding: EdgeInsets.only(top: 10)),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    comments[index]['user']['name'],
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ]),
+                            const Padding(padding: EdgeInsets.only(top: 15)),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  comments[index]['content'],
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ]))
+                    );
+                  }),
+            ),
           ],
         ),
       ),
