@@ -34,6 +34,17 @@ class Network {
     }
   }
 
+  updateData(apiUrl, {data}) async {
+    var fullUrl = _url + apiUrl;
+    await _getToken();
+    if (data == null) {
+      return await http.put(Uri.parse(fullUrl), headers: _setHeaders());
+    } else {
+      return await http.put(Uri.parse(fullUrl),
+          body: jsonEncode(data), headers: _setHeaders());
+    }
+  }
+
   _setHeaders() => {
         'Content-type': 'application/json',
         'Accept': 'application/json',
