@@ -5,7 +5,6 @@ import 'package:flutter_app/network_utils/api.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_moment/simple_moment.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -17,6 +16,12 @@ class Profile extends StatefulWidget {
 class ProfileState extends State<Profile> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late dynamic user = {};
+  TextEditingController usernameController = TextEditingController(text: '');
+  TextEditingController lastnameController = TextEditingController(text: '');
+  TextEditingController firstnameController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController bioController = TextEditingController(text: '');
+  TextEditingController avatarController = TextEditingController(text: '');
 
   @override
   void initState() {
@@ -28,6 +33,12 @@ class ProfileState extends State<Profile> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     setState(() {
       user = jsonDecode(localStorage.getString('user')!);
+      usernameController.text = user['username'] ?? '';
+      lastnameController.text = user['lastname'] ?? '';
+      firstnameController.text = user['firstname'] ?? '';
+      emailController.text = user['email'] ?? '';
+      bioController.text = user['bio'] ?? '';
+      avatarController.text = user['avatar'] ?? '';
     });
   }
 
@@ -119,10 +130,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: usernameController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['username'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -139,7 +150,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre nom d\'utilisateur';
                         }
-                        user['username'] = value;
+                        usernameController.text = value;
                         return null;
                       },
                     ),
@@ -154,10 +165,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: lastnameController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['lastname'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -174,7 +185,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre nom';
                         }
-                        user['lastname'] = value;
+                        lastnameController.text = value;
                         return null;
                       },
                     ),
@@ -189,10 +200,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: firstnameController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['firstname'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -209,7 +220,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre prénom';
                         }
-                        user['firstname'] = value;
+                        firstnameController.text = value;
                         return null;
                       },
                     ),
@@ -224,10 +235,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: emailController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['email'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -244,7 +255,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre email';
                         }
-                        user['email'] = value;
+                        emailController.text = value;
                         return null;
                       },
                     ),
@@ -259,10 +270,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: bioController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['bio'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -279,7 +290,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre biographie';
                         }
-                        user['bio'] = value;
+                        bioController.text = value;
                         return null;
                       },
                     ),
@@ -294,10 +305,10 @@ class ProfileState extends State<Profile> {
                       ],
                     ),
                     TextFormField(
+                      controller: avatarController,
                       style: const TextStyle(color: Color(0xFF2A194D)),
                       cursorColor: Colors.white,
                       keyboardType: TextInputType.text,
-                      initialValue: user['avatar'] ?? '',
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -314,7 +325,7 @@ class ProfileState extends State<Profile> {
                         if (value!.isEmpty) {
                           return 'Entrez votre avatar';
                         }
-                        user['avatar'] = value;
+                        avatarController.text = value;
                         return null;
                       },
                     ),
@@ -359,13 +370,19 @@ class ProfileState extends State<Profile> {
   }
 
   void _updateUser() async {
-    var res = await Network().updateData('/users/${user['id']}', data: user);
+    var usr = {
+      'username': usernameController.text,
+      'lastname': lastnameController.text,
+      'firstname': firstnameController.text,
+      'email': emailController.text,
+      'bio': bioController.text,
+      'avatar': avatarController.text,
+    };
+    var res = await Network().updateData('/users/${user['id']}', data: usr);
     if (res.statusCode == 201) {
-      print(json.encode(json.decode(res.body)['data']));
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      print(localStorage.getString('user'));
-      // localStorage.setString(
-      //     'user', json.encode(json.decode(res.body)['data']));
+      localStorage.setString(
+          'user', json.encode(json.decode(res.body)['data']));
     }
   }
 }
