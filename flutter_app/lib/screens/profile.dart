@@ -25,10 +25,9 @@ class ProfileState extends State<Profile> {
   }
 
   _loadUser() async {
-    var response = await Network().getData('/me');
-    var jsonData = json.decode('[${response.body}]');
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     setState(() {
-      user = jsonData[0]['user'];
+      user = jsonDecode(localStorage.getString('user')!);
     });
   }
 
@@ -105,47 +104,239 @@ class ProfileState extends State<Profile> {
                         ),
                       ],
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          user['username'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          user['lastname'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          user['firstname'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          user['email'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          user['bio'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          user['avatar'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
+                    // throws error but doesn't works without
+                    Text(user['username'],
+                        style: const TextStyle(
+                          color: Colors.transparent,
+                        )),
+                    Row(
+                      children: const <Widget>[
+                        Text('Nom d\'utilisateur',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
                       ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['username'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Nom d'utilisateur",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre nom d\'utilisateur';
+                        }
+                        user['username'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    Row(
+                      children: const <Widget>[
+                        Text('Nom',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['lastname'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Nom",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre nom';
+                        }
+                        user['lastname'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    Row(
+                      children: const <Widget>[
+                        Text('Prénom',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['firstname'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Prénom",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre prénom';
+                        }
+                        user['firstname'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    Row(
+                      children: const <Widget>[
+                        Text('Email',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['email'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Email",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre email';
+                        }
+                        user['email'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    Row(
+                      children: const <Widget>[
+                        Text('Biographie',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['bio'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Biographie",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre biographie';
+                        }
+                        user['bio'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    Row(
+                      children: const <Widget>[
+                        Text('Avatar',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Color(0xFF2A194D)),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      initialValue: user['avatar'] ?? '',
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        hintText: "Avatar",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFC4C4C4),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Entrez votre avatar';
+                        }
+                        user['avatar'] = value;
+                        return null;
+                      },
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 10)),
+                    TextButton(
+                      onPressed: () => {_updateUser()},
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFF2A194D),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.only(
+                            top: 10, bottom: 10, left: 10, right: 10),
+                        child: Text(
+                          'Modifier',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -164,6 +355,17 @@ class ProfileState extends State<Profile> {
       localStorage.remove('user');
       localStorage.remove('token');
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    }
+  }
+
+  void _updateUser() async {
+    var res = await Network().updateData('/users/${user['id']}', data: user);
+    if (res.statusCode == 201) {
+      print(json.encode(json.decode(res.body)['data']));
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      print(localStorage.getString('user'));
+      // localStorage.setString(
+      //     'user', json.encode(json.decode(res.body)['data']));
     }
   }
 }
