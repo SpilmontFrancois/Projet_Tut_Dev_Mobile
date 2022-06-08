@@ -107,8 +107,9 @@ class PostState extends State<Post> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(30),
                             child: FadeInImage.assetNetwork(
-                              placeholder: 'user.png',
-                              image: widget.post['user']['avatar'],
+                              placeholder: 'user image',
+                              image: widget.post['user']['avatar'] ??
+                                  'https://www.waspcom.com/wp-content/uploads/2014/10/user-placeholder-circle-1-300x300.png',
                               width: 50,
                               height: 50,
                             ),
@@ -219,7 +220,7 @@ class PostState extends State<Post> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(30),
                                     child: FadeInImage.assetNetwork(
-                                      placeholder: 'user.png',
+                                      placeholder: 'user image',
                                       image: comments[index]['user']['avatar'],
                                       width: 50,
                                       height: 50,

@@ -38,7 +38,8 @@ class ProfileState extends State<Profile> {
       firstnameController.text = user['firstname'] ?? '';
       emailController.text = user['email'] ?? '';
       bioController.text = user['bio'] ?? '';
-      avatarController.text = user['avatar'] ?? '';
+      avatarController.text = user['avatar'] ??
+          'https://www.waspcom.com/wp-content/uploads/2014/10/user-placeholder-circle-1-300x300.png';
     });
   }
 

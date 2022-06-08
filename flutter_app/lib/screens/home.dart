@@ -198,7 +198,7 @@ class HomeState extends State<Home> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(30),
                                   child: FadeInImage.assetNetwork(
-                                    placeholder: 'user.png',
+                                    placeholder: 'user image',
                                     image: feed[index]['user']['avatar'] ??
                                         'https://www.waspcom.com/wp-content/uploads/2014/10/user-placeholder-circle-1-300x300.png',
                                     width: 50,
