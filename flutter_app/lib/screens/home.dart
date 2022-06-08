@@ -200,7 +200,7 @@ class HomeState extends State<Home> {
                                   child: FadeInImage.assetNetwork(
                                     placeholder: 'user.png',
                                     image: feed[index]['user']['avatar'] ??
-                                        'assets/user.png',
+                                        'https://www.waspcom.com/wp-content/uploads/2014/10/user-placeholder-circle-1-300x300.png',
                                     width: 50,
                                     height: 50,
                                   ),
