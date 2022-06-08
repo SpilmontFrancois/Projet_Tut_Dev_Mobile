@@ -77,20 +77,47 @@ class HomeState extends State<Home> {
                       const Padding(padding: EdgeInsets.only(bottom: 10)),
                       Row(
                         children: <Widget>[
-                          ElevatedButton(
-                            child: const Text('Annuler'),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          ElevatedButton(
-                            child: const Text('Sauvegarder'),
-                            onPressed: () => {
-                              _post(),
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Home()),
-                              )
-                            },
+                          Expanded(
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xFF2A194D),
+                                      primary: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text('Annuler'),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: const Color(0xFF7C49E9),
+                                      primary: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                    ),
+                                    onPressed: () => {
+                                      _post(),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => const Home()),
+                                      )
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text('Poster'),
+                                    ),
+                                  )
+                                ]),
                           )
                         ],
                       )
