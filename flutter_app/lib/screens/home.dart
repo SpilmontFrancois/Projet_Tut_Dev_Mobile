@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   List<dynamic> feed = [];
+  TextEditingController contentController = TextEditingController(text: '');
 
   @override
   void initState() {
@@ -35,6 +36,74 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 200,
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextFormField(
+                        controller: contentController,
+                        style: const TextStyle(color: Color(0xFF2A194D)),
+                        cursorColor: Colors.white,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          ),
+                          hintText: "Contenu",
+                          hintStyle: TextStyle(
+                              color: Color(0xFFC4C4C4),
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Entrez le contenu';
+                          }
+                          contentController.text = value;
+                          return null;
+                        },
+                      ),
+                      const Padding(padding: EdgeInsets.only(bottom: 10)),
+                      Row(
+                        children: <Widget>[
+                          ElevatedButton(
+                            child: const Text('Annuler'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          ElevatedButton(
+                            child: const Text('Sauvegarder'),
+                            onPressed: () => {
+                              _post(),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()),
+                              )
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        backgroundColor: const Color(0xFF7C49E9),
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         actions: <Widget>[
           Expanded(
@@ -103,7 +172,8 @@ class HomeState extends State<Home> {
                                   borderRadius: BorderRadius.circular(30),
                                   child: FadeInImage.assetNetwork(
                                     placeholder: 'user.png',
-                                    image: feed[index]['user']['avatar'],
+                                    image: feed[index]['user']['avatar'] ??
+                                        'assets/user.png',
                                     width: 50,
                                     height: 50,
                                   ),
@@ -232,6 +302,21 @@ class HomeState extends State<Home> {
     var res = await Network().postData('/share/$id');
     if (res.statusCode == 200) {
       _loadFeed();
+    }
+  }
+
+  void _post() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var user_id = json.decode(localStorage.getString('user')!)['id'];
+    var post = {
+      'user_id': user_id,
+      'content': contentController.text,
+    };
+    var res = await Network().postData('/posts', data: post);
+    if (res.statusCode == 200) {
+      setState(() {
+        contentController.text = '';
+      });
     }
   }
 }
