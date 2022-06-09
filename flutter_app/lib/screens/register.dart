@@ -25,208 +25,230 @@ class RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        color: Colors.teal,
+        color: const Color(0xFFF7F3FE),
         child: Stack(
           children: <Widget>[
             Positioned(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Card(
-                      elevation: 4.0,
-                      color: Colors.white,
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              TextFormField(
-                                style:
-                                    const TextStyle(color: Color(0xFF000000)),
-                                cursorColor: const Color(0xFF9b9b9b),
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.grey,
-                                  ),
-                                  hintText: "Username",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF9b9b9b),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Card(
+                    elevation: 4.0,
+                    color: const Color(0xFF7C49E9),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30, bottom: 10, left: 10, right: 10),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            TextFormField(
+                              style: const TextStyle(color: Color(0xFF2A194D)),
+                              cursorColor: Colors.white,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                validator: (uname) {
-                                  if (uname!.isEmpty) {
-                                    return 'Please enter your username';
-                                  }
-                                  username = uname;
-                                  return null;
-                                },
+                                hintText: "Username",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFFC4C4C4),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
                               ),
-                              TextFormField(
-                                style:
-                                    const TextStyle(color: Color(0xFF000000)),
-                                cursorColor: const Color(0xFF9b9b9b),
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.grey,
-                                  ),
-                                  hintText: "First Name",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF9b9b9b),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+                              validator: (uname) {
+                                if (uname!.isEmpty) {
+                                  return 'Please enter your username';
+                                }
+                                username = uname;
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(5),
+                            ),
+                            TextFormField(
+                              style: const TextStyle(color: Color(0xFF2A194D)),
+                              cursorColor: Colors.white,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                validator: (fname) {
-                                  if (fname!.isEmpty) {
-                                    return 'Please enter your first name';
-                                  }
-                                  firstname = fname;
-                                  return null;
-                                },
+                                hintText: "First name",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFFC4C4C4),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
                               ),
-                              TextFormField(
-                                style:
-                                    const TextStyle(color: Color(0xFF000000)),
-                                cursorColor: const Color(0xFF9b9b9b),
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.grey,
-                                  ),
-                                  hintText: "Last Name",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF9b9b9b),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+                              validator: (fname) {
+                                if (fname!.isEmpty) {
+                                  return 'Please enter your first name';
+                                }
+                                firstname = fname;
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(5),
+                            ),
+                            TextFormField(
+                              style: const TextStyle(color: Color(0xFF2A194D)),
+                              cursorColor: Colors.white,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                validator: (lname) {
-                                  if (lname!.isEmpty) {
-                                    return 'Please enter your last name';
-                                  }
-                                  lastname = lname;
-                                  return null;
-                                },
+                                hintText: "Last name",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFFC4C4C4),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
                               ),
-                              TextFormField(
-                                style:
-                                    const TextStyle(color: Color(0xFF000000)),
-                                cursorColor: const Color(0xFF9b9b9b),
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.email,
-                                    color: Colors.grey,
-                                  ),
-                                  hintText: "Email",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF9b9b9b),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+                              validator: (lname) {
+                                if (lname!.isEmpty) {
+                                  return 'Please enter your last name';
+                                }
+                                lastname = lname;
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(5),
+                            ),
+                            TextFormField(
+                              style: const TextStyle(color: Color(0xFF2A194D)),
+                              cursorColor: Colors.white,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                validator: (emailValue) {
-                                  if (emailValue!.isEmpty) {
-                                    return 'Please enter email';
-                                  }
-                                  email = emailValue;
-                                  return null;
-                                },
+                                hintText: "Email",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFFC4C4C4),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
                               ),
-                              TextFormField(
-                                style:
-                                    const TextStyle(color: Color(0xFF000000)),
-                                cursorColor: const Color(0xFF9b9b9b),
-                                keyboardType: TextInputType.text,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(
-                                    Icons.vpn_key,
-                                    color: Colors.grey,
-                                  ),
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF9b9b9b),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal),
+                              validator: (emailValue) {
+                                if (emailValue!.isEmpty) {
+                                  return 'Please enter email';
+                                }
+                                email = emailValue;
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(5),
+                            ),
+                            TextFormField(
+                              style: const TextStyle(color: Color(0xFF2A194D)),
+                              cursorColor: Colors.white,
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                validator: (passwordValue) {
-                                  if (passwordValue!.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  password = passwordValue;
-                                  return null;
-                                },
+                                hintText: "Password",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFFC4C4C4),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Colors.teal,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0)),
-                                  ),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _register();
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, bottom: 8, left: 10, right: 10),
-                                    child: Text(
-                                      _isLoading
-                                          ? 'Proccessing...'
-                                          : 'Register',
-                                      textDirection: TextDirection.ltr,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15.0,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.normal,
-                                      ),
+                              validator: (passwordValue) {
+                                if (passwordValue!.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                password = passwordValue;
+                                return null;
+                              },
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: const Color(0xFF2A194D),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _register();
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5, bottom: 5, left: 10, right: 10),
+                                  child: Text(
+                                    _isLoading
+                                        ? 'Inscription...'
+                                        : 'Créer mon compte',
+                                    textDirection: TextDirection.ltr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Login()));
-                        },
-                        child: const Text(
-                          'Already Have an Account',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFF2A194D),
+                          width: 1,
+                        ),
+                        backgroundColor: const Color(0xFFF7F3FE),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()));
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(
+                            top: 5, bottom: 5, left: 10, right: 10),
+                        child: Text(
+                          'J\'ai déjà un compte',
+                          textDirection: TextDirection.ltr,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15.0,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.normal,
+                            color: Color(0xFF2A194D),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ],
