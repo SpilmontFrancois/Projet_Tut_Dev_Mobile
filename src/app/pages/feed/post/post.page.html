@@ -1,21 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
 <ion-content>
   <div class="content">
-    
-    <div class="post">
-      <div style="display: none;" class="post-imgs">
-        <img src=""/>
-      </div>
-      
+    <div *ngFor="let post of posts" class="post" >
       <div class="post-text">
         <div class="post-user-infos">
-          <ion-avatar style="background-color:black;"></ion-avatar>
+          <ion-avatar style="background-color:black;">
+            <img src="{{post.avatar}}"/>
+          </ion-avatar>
           <div>
-            <p class="username">Les joies du code</p>
-            <p class="pseudo">@lesjoiesducode</p>
+            <p class="username">{{post.username}}</p>
+            <p class="pseudo">{{post.username}}</p>
           </div>
         </div>
         <div class="post-content">
-          <p class="text">Logoden biniou degemer mat an penn ar bed Arzhal, dimeurzh un gwez seizhvet diskiant labourat eus lies sec’hañ, goulou liorzh ezel pell kalonek dek livet. Soudard ennomp a izel ha ger pegen disheol moereb, mañ An Alre koulz kerzu e kibellañ sellout baradoz fazi, beajour skouer kempenn e chadenn rodell c’hoar.<p>
+          <p class="text">{{post.content}}<p>
           </div>
           <div class="interact">
             <div>
@@ -42,10 +47,10 @@
         </div>
       </div>
 
-       <!--! -->
 
-      <div *ngFor="let post of posts" class="post" >
-        <div class="post-text" >
+
+      <div *ngFor="let post of postsComment" class="post" >
+        <div class="post-text">
           <div class="post-user-infos">
             <ion-avatar style="background-color:black;">
               <img src="{{post.avatar}}"/>
@@ -60,14 +65,14 @@
             </div>
             <div class="interact">
               <div>
-                <div class="button fav" (click)="addStar(post.id)">
+                <div class="button fav">
                   <ion-icon name="star-outline"></ion-icon>
-                  <p>{{post.stars}}</p>
+                  <p>1121</p>
                 </div>
                 
-                <div class="button repost" (click)="addShare(post.id)">
+                <div class="button repost">
                   <ion-icon name="repeat-outline"></ion-icon>
-                  <p>{{post.share}}</p>
+                  <p>1121</p>
                 </div>
                 
                 <div class="button answer" (click)="this.services.openSheetModal()">
@@ -82,13 +87,9 @@
             </div>
           </div>
         </div>
+  </div>
 
-    </div>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom:10px;">
-      <ion-fab-button color="main" (click)="this.services.openSheetModal()">
-      <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-content>
   
+</ion-content>
+

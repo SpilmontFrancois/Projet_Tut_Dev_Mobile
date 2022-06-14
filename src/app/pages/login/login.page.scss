@@ -1,0 +1,92 @@
+// .content{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+.svg{
+    height: 50vh;
+
+    // .green-circle{
+    //     background-color: blue;
+    //     height: 50vh;
+    //     border-top-left-radius: 50%;
+    //     border-top-right-radius: 50%;
+    //     width: 150vw;
+    //     left: -25vw;
+    // }
+    // .green-circle{
+    //     position: relative;
+    //     z-index: 50;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     padding-top: 10vh;
+    // }
+    .light-green-circle{
+        background-color: #e9e2f5;
+        height: 30vh;
+        width: 70vw;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .svg-nanny{
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+}
+
+form{
+    background-color: #7C49E9;
+    padding-top: 5vh;
+    height: 50vh;
+    width: 100%;
+    .input-group{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+ion-item{
+    border-radius: 20px;
+    margin: 2vw 0;
+    width: 80%;
+    height: 5vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ion-buttons{
+    display: flex;
+    flex-direction: column;
+    
+    ion-button{
+        margin: 2%;
+        width: 80%;
+        height: 5vh;
+        border-radius: 25px;
+        color: white;
+    }
+
+    .signin{
+        background-color: #250B5B;
+    }
+
+    .forget-password{
+        background-color: none;
+    }
+
+    .register{
+        border: 1px white solid;
+    }
+}
+

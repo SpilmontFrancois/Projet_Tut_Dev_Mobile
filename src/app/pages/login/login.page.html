@@ -1,0 +1,49 @@
+<ion-content class="login">
+  
+  <div class="content">
+    
+    <div class="svg">
+      <div class="light-green-circle"></div>
+      <img class="svg svg-nanny" src="../../../assets/icon/svg/login.svg" alt="">
+    </div>
+    
+    
+    
+    
+    
+    <form [formGroup]="form" class="green-circle">
+      <div class="input-group">
+        <ion-item lines="full">
+          <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-icon 
+            [name]="type ? 'eye-off' : 'eye'" 
+            slot="end" 
+            color="dark" 
+            (click)="changeType()">
+          </ion-icon>
+          <ion-input formControlName="password" [type]="type ? 'password' : 'text'" 
+            placeholder="Mot de passe"></ion-input>
+        </ion-item>
+      </div>
+      
+      <ion-buttons>
+        <ion-button class="button signin" type="submit" (click)="onSubmit()">Se connecter</ion-button>
+        <ion-button class="button forget-password" type="button" fill="clear"> <ion-icon name="lock-closed"></ion-icon>Mot de passe oubliée </ion-button>
+        <ion-button class="button register" type="button" (click)="this.router.navigateByUrl('register')">
+          Se créer un compte
+        </ion-button>
+      </ion-buttons>
+      
+      
+      
+      
+      
+    </form>
+  </div>
+  
+  
+  
+</ion-content>

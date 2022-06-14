@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="n">
+    <div>
+      <ion-icon name="chevron-back" (click)="this.router.navigateByUrl('login')"></ion-icon>
+      <ion-title>Inscription</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  
+  <div class="content">    
+    <form [formGroup]="form" class="green-circle">
+      
+      <div class="input mail">
+        <ion-input [type]="text" 
+        formControlName="username"
+        placeholder="Nom d'utilisateur"></ion-input>
+      </div>
+      <ion-text 
+        color="danger" 
+        *ngIf="!form.get('firstname').valid && form.get('firstname').touched">
+      </ion-text>
+
+
+      <div class="input mail">
+        <ion-input [type]="text" 
+        formControlName="firstname"
+        placeholder="Prénom"></ion-input>
+      </div>
+      <ion-text 
+        color="danger" 
+        *ngIf="!form.get('firstname').valid && form.get('firstname').touched">
+      </ion-text>
+
+      <div class="input mail">
+        <ion-input [type]="text" 
+        formControlName="lastname"
+        placeholder="Nom"></ion-input>
+      </div>
+      <ion-text 
+        color="danger" 
+        *ngIf="!form.get('firstname').valid && form.get('firstname').touched">
+      </ion-text>
+
+
+      <div class="input mail">
+        <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+      </div>
+      <ion-text  
+        color="danger" 
+        *ngIf="!form.get('email').valid && form.get('email').touched">
+        <!-- for email error -->
+
+      </ion-text>
+
+
+      <!-- <input formControlName="username" type="text" typer="text" class="input mail" placeholder="Username"> -->
+      <!-- <input formControlName="lastname" type="text" typer="text" class="input mail" placeholder="Nom"> -->
+      <!-- <input formControlName="firstname" type="text" typer="text" class="input mail" placeholder="Prénom"> -->
+      <!-- <input formControlName="email" type="text" typer="text" class="input mail" placeholder="Email"> -->
+      
+      
+      <!-- <input formControlName="password" [type]="type ? 'text' : 'password'" class="input password" placeholder="Mot de passe">
+        <input formControlName="confirmedPassword" [type]="type ? 'text' : 'password'" class="input password" placeholder="Confirmer le mot de passe"> -->
+        
+        <div class="input-password">
+          <ion-input formControlName="password" [type]="type ? 'text' : 'password'" 
+            placeholder="Mot de passe"></ion-input>
+            <ion-icon 
+            [name]="type ? 'eye' : 'eye-off'" 
+            slot="end" 
+            color="dark" 
+            (click)="changeType()">
+          </ion-icon>
+        </div>
+
+        <div class="input-password">
+          <ion-input formControlName="confirmedPassword" [type]="type ? 'text' : 'password'" 
+            placeholder="Confirmation du mot de passe"></ion-input>
+            <ion-icon 
+            [name]="type ? 'eye' : 'eye-off'" 
+            slot="end" 
+            color="dark" 
+            (click)="changeType()">
+          </ion-icon>
+        </div>
+
+        <ion-buttons>
+          <button class="button register" (click)="onSubmit()">Créer mon compte</button>
+        </ion-buttons>
+        
+      </form>
+    </div>
+    
+  </ion-content>
+  

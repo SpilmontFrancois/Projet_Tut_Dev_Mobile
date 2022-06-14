@@ -1,9 +1,57 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>search</ion-title>
+<ion-header #headwrapper>
+  <ion-toolbar color="main">
+    <div class="search">
+      <ion-input placeholder="Search" (ionFocus)="toggleSearch()"
+      [class.active-search]="searching"
+      [class.inactive-search]="!searching">
+        <ion-icon name="search"></ion-icon>
+      </ion-input>
+      <ion-button fill="clear" color="light" size="small" (click)="toggleSearch()"
+      [ngClass]="{'visible-btn':searching, 'hidden-btn': !searching}">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-header>
+    <!-- Segment with anchors -->
+    <ion-segment (ionChange)="segmentChanged($event)" value="Top" color="main">
+      <ion-segment-button value="Top">
+        <ion-label>Top</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Recents">
+        <ion-label>Récent</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Compte">
+        <ion-label>Compte</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Photo">
+        <ion-label>Photos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-header>
+  
+  <div *ngIf="listOfRes" class="content">
+    <div class="img"></div>
+    <div class="card-content">
+      <div>
+        <div>
+          <div class="title">flutter</div>
+          <div class="subtitle">@FlutterDev</div>
+        </div>
+        <div class="button-follow">Follow</div>
+      </div>
+      <div class="description">Google's UI toolkit to build apps for mobile web & desktop from a single codebase</div>
+    </div>
+  </div>
+  
+  <div *ngIf="!listOfRes" class="content-empty">
+    <p>Votre recherche est vide</p>
+    <img class="empty" src="../../../assets/img/empty.svg" alt="">
+  </div>
+  
+  
+  
 </ion-content>

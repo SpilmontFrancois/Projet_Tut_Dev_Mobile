@@ -1,0 +1,127 @@
+p{
+    margin: 0;
+    padding: 0;
+}
+.background{
+    background-color: red;
+    height: 15vh;
+}
+.profil-pic{
+    position: absolute;
+    left: 3vw;
+    top: 10vh;
+    height: 10vh;
+    width: 10vh;
+    background-color: black;
+    border-radius: 50%;
+}
+.profil-infos{
+    background-color: #F7F3FE;
+    display: flex;
+    flex-direction: column;
+    padding: 0 3%;
+
+    .buttons{
+        align-self: flex-end;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        justify-content: space-between;
+        margin: 10px;
+        width: 40vw;
+        .button{
+            border: #6563FF solid 2px;
+            color: #6563FF;
+            margin: auto;
+            padding: auto;
+            padding: 10px;
+        }
+        .button-message{
+            border-radius: 50%;
+            font-size: 1rem;
+        }
+        .button-follow{
+            text-align: center;
+            width: 25vw;
+            border-radius: 25px;
+            padding: auto;
+            margin: auto;
+        }
+    }
+
+
+    .usernames{
+        
+    }
+}
+
+
+.content{
+    height: 50vh;
+    margin: 0;
+    background-color: #F7F3FE;
+}
+.post{
+    background-color: white;
+    margin: 2%;
+    border-radius: 5px;
+}
+
+.post-text{
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+
+.post-user-infos{
+    display: flex;
+    // flex-direction: column;
+    
+    ion-avatar{
+        margin: 2%;
+    }
+    
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}
+
+.post-content{
+    display: flex;
+}
+
+.interact{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    div{
+        display: flex;
+    }
+    .button{
+        margin-right: 20%;
+    }
+}
+
+.username{
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+.pseudo{
+    color: grey;
+}
+.post-content{
+    padding: 3% 0;
+}
+.button{
+    ion-icon{
+        color: #6563FF;
+        font-size: 1.5rem;
+        margin: 1%;
+    }
+    p{
+        margin: auto;
+        padding: auto;
+    }
+}
