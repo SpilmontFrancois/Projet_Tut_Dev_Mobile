@@ -71,7 +71,7 @@ export default {
     strategies: {
       local: {
         token: {
-          property: false,
+          property: 'access_token',
           global: true,
           // required: true,
           // type: 'Bearer'
