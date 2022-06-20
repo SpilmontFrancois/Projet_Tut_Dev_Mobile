@@ -1,3 +1,15 @@
+ion-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5%;
+    ion-icon{
+        font-size: 1.5rem;
+        margin: auto;
+        padding: auto;
+    }
+}
+
 p{
     margin: 0;
     padding: 0;

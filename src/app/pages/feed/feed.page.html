@@ -45,34 +45,38 @@
        <!--! -->
 
       <div *ngFor="let post of posts" class="post" >
-        <div class="post-text" >
-          <div class="post-user-infos">
-            <ion-avatar style="background-color:black;">
-              <img src="{{post.avatar}}"/>
+        <div class="post-text">
+          <div class="post-user-infos" (click)="goToPostComment(post.user.id)">
+            <ion-avatar style="background-color:black;"> 
+              <img src="{{post.user.avatar}}"/>
             </ion-avatar>
             <div>
-              <p class="username">{{post.username}}</p>
-              <p class="pseudo">{{post.username}}</p>
+              <p class="username">{{post.user.name}}</p>
+              <p class="pseudo">{{post.user.name}}</p>
             </div>
           </div>
-          <div class="post-content">
+          <div class="post-content"  (click)="goToPostComment(post.user.id)">
             <p class="text">{{post.content}}<p>
             </div>
             <div class="interact">
               <div>
-                <div class="button fav" (click)="addStar(post.id)">
+                <div *ngIf="post.stars == 1" class="button fav" (click)="addStar(post.id)">
+                  <ion-icon name="star"></ion-icon>
+                  <p>{{post.stars}}</p>
+                </div>
+                <div *ngIf="post.stars != 1" class="button fav" (click)="addStar(post.id)">
                   <ion-icon name="star-outline"></ion-icon>
                   <p>{{post.stars}}</p>
                 </div>
                 
                 <div class="button repost" (click)="addShare(post.id)">
                   <ion-icon name="repeat-outline"></ion-icon>
-                  <p>{{post.share}}</p>
+                  <p>{{post.shares}}</p>
                 </div>
                 
                 <div class="button answer" (click)="this.services.openSheetModal()">
                   <ion-icon name="chatbubble-outline"></ion-icon>
-                  <p>1121</p>
+                  <p>{{post.comments}}</p>
                 </div>
               </div>
               

@@ -1,11 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
 })
+
+
 export class PostPage implements OnInit {
+
+  headers = new HttpHeaders({
+    'Accept': 'application/json',
+    'Authorization':'Bearer HflxhQS3cm6DPOsuAd5DDypJaIuT9Im39gQhVyOl'
+  })
+
+  idPost: string;
+
+  post = []
 
   posts = [
     {
@@ -16,7 +29,7 @@ export class PostPage implements OnInit {
     },
   ];
 
-  postsComment = [
+  postComments = [
     {
       'id':3,
       'username':'hills.diamond',
@@ -37,10 +50,33 @@ export class PostPage implements OnInit {
     }
   ]
 
+  postsComment = [ ]
 
-  constructor() { }
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+  ) { }
 
   ngOnInit() {
+    this.idPost = this.route.snapshot.paramMap.get('id');
+
+    this.fetchPost()
   }
 
+  fetchPost(){
+    let response = this.http.get('http://192.168.1.66:8000/api/posts/' + this.idPost, {headers: this.headers})
+    .subscribe((response => {
+      this.post = Object.values(response)
+      this.post = this.post[0]
+      // this.post = Object.values(this.post)
+      console.log("🚀 ~ file: post.page.ts ~ line 43 ~ PostPage ~ fetchPost ~ this.post", this.post)
+    }));
+  }
+
+
+  goToPost(){
+   this.router.navigateByUrl('feed');
+  }
 }
