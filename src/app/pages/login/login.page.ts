@@ -67,6 +67,7 @@ export class LoginPage implements OnInit {
       body,
       options
     ).subscribe((response: any) => {
+      console.log(response);
       localStorage.setItem('token', response)
 
       this.router.navigateByUrl('/tabs/feed')

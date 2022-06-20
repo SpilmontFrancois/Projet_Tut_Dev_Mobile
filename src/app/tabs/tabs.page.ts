@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
   }
+
+  // logout(){
+  //   this.http.post('http://localhost:3000/api/logout', {}, {headers: headers})
+  //   .subscribe()
+  // }
 
 }

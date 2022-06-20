@@ -10,130 +10,72 @@
 
 
 <ion-content>
-    <div class="content">
-      <div class="post">
+  <div class="content">
+    <div class="post">
+      <div class="post-text">
+        <div class="post-user-infos">
+          <ion-avatar style="background-color:black;">
+            <img src="{{ this.postUser['avatar'] }}"/>
+          </ion-avatar>
+          <div>
+            <p class="username">{{ this.postUser['name'] }}</p>
+            <p class="pseudo">@{{ this.postUser['name'] }}</p>
+          </div>
+        </div>
+        <div class="post-content">
+          <p class="text">{{ this.post['content'] }}<p>
+          </div>
+          <div class="interact">
+            <div>
+              <div class="button fav">
+                <ion-icon name="star-outline"></ion-icon>
+                <p>{{ this.post['stars'] }}</p>
+              </div>
+              
+              <div class="button repost">
+                <ion-icon name="repeat-outline"></ion-icon>
+                <p>{{ this.post['shares'] }}</p>
+              </div>
+              
+              <div class="button answer" (click)="this.services.openSheetModal()">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+                <p>{{ this.post['comments'] }}</p>
+              </div>
+            </div>
+            
+            <div class="settings">
+              <ion-icon name="ellipsis-vertical"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div *ngFor="let post of postComments" class="post" >
         <div class="post-text">
           <div class="post-user-infos">
             <ion-avatar style="background-color:black;">
-              <img src=""/>
+              <img src="{{ post.user.avatar }}"/>
             </ion-avatar>
             <div>
-              <p class="username">user.name</p>
-              <p class="pseudo">@ username {{this.posts}}</p>
+              <p class="username">{{ post.user.name }}</p>
+              <p class="pseudo">@{{ post.user.name }}</p>
             </div>
           </div>
           <div class="post-content">
-            <p class="text">content<p>
+            <p class="text">{{ post.content }}<p>
             </div>
-            <div class="interact">
-              <div>
-                <div class="button fav">
-                  <ion-icon name="star-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-                
-                <div class="button repost">
-                  <ion-icon name="repeat-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-                
-                <div class="button answer" (click)="this.services.openSheetModal()">
-                  <ion-icon name="chatbubble-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-              </div>
-              
-              <div class="settings">
-                <ion-icon name="ellipsis-vertical"></ion-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      <div *ngFor="let post of posts" class="post" >
-        <div class="post-text">
-          <div class="post-user-infos">
-            <ion-avatar style="background-color:black;">
-              <img src="{{post.avatar}}"/>
-            </ion-avatar>
-            <div>
-              <p class="username">{{post.username}}</p>
-              <p class="pseudo">{{post.username}}</p>
-            </div>
-          </div>
-          <div class="post-content">
-            <p class="text">{{post.content}}<p>
-            </div>
-            <div class="interact">
-              <div>
-                <div class="button fav">
-                  <ion-icon name="star-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-                
-                <div class="button repost">
-                  <ion-icon name="repeat-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-                
-                <div class="button answer" (click)="this.services.openSheetModal()">
-                  <ion-icon name="chatbubble-outline"></ion-icon>
-                  <p>1121</p>
-                </div>
-              </div>
-              
-              <div class="settings">
-                <ion-icon name="ellipsis-vertical"></ion-icon>
-              </div>
-            </div>
+            
           </div>
         </div>
         
         
         
-        <div *ngFor="let post of postComments" class="post" >
-          <div class="post-text">
-            <div class="post-user-infos">
-              <ion-avatar style="background-color:black;">
-                <img src="{{post.avatar}}"/>
-              </ion-avatar>
-              <div>
-                <p class="username">{{post.username}}</p>
-                <p class="pseudo">{{post.username}}</p>
-              </div>
-            </div>
-            <div class="post-content">
-              <p class="text">{{post.content}}<p>
-              </div>
-              <div class="interact">
-                <div>
-                  <div class="button fav">
-                    <ion-icon name="star-outline"></ion-icon>
-                    <p>1121</p>
-                  </div>
-                  
-                  <div class="button repost">
-                    <ion-icon name="repeat-outline"></ion-icon>
-                    <p>1121</p>
-                  </div>
-                  
-                  <div class="button answer" (click)="this.services.openSheetModal()">
-                    <ion-icon name="chatbubble-outline"></ion-icon>
-                    <p>1121</p>
-                  </div>
-                </div>
-                
-                <div class="settings">
-                  <ion-icon name="ellipsis-vertical"></ion-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         
-        
-        
-      </ion-content>
+      </div>
       
       
+      
+    </ion-content>
+    
+    

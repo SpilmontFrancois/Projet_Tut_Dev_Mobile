@@ -46,7 +46,7 @@
 
       <div *ngFor="let post of posts" class="post" >
         <div class="post-text">
-          <div class="post-user-infos" (click)="goToPostComment(post.user.id)">
+          <div class="post-user-infos" (click)="goToPostComment(post.id)">
             <ion-avatar style="background-color:black;"> 
               <img src="{{post.user.avatar}}"/>
             </ion-avatar>

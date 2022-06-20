@@ -20,37 +20,11 @@ export class PostPage implements OnInit {
 
   post = []
 
-  posts = [
-    {
-      'id':5,
-      'username':'damian82',
-      'avatar':'https://i.pravatar.cc/300?u=ZR39cqgCU8',
-      'content': 'Rerum repellendus tenetur quia fugiat est.',
-    },
-  ];
+  postUser = [];
 
-  postComments = [
-    {
-      'id':3,
-      'username':'hills.diamond',
-      'avatar':'https://i.pravatar.cc/300?u=JwOUHDreWQ',
-      'content': 'Consequuntur dolores a molestiae nostrum.',
-    },
-    {
-      'id':1,
-      'username':'damian82',
-      'avatar':'https://i.pravatar.cc/300?u=ZR39cqgCU8',
-      'content': 'Et animi hic quo quia voluptatibus.',
-    },
-    {
-      'id':10,
-      'username':'lea94',
-      'avatar':'https://i.pravatar.cc/300?u=da0gtX84uL',
-      'content': 'Provident qui doloribus explicabo enim voluptas omnis aut.',
-    }
-  ]
+  postComments = []
 
-  postsComment = [ ]
+  postCommentsUser = [];
 
 
   constructor(
@@ -63,6 +37,7 @@ export class PostPage implements OnInit {
     this.idPost = this.route.snapshot.paramMap.get('id');
 
     this.fetchPost()
+    this.fetchPostComments()
   }
 
   fetchPost(){
@@ -70,9 +45,21 @@ export class PostPage implements OnInit {
     .subscribe((response => {
       this.post = Object.values(response)
       this.post = this.post[0]
-      // this.post = Object.values(this.post)
-      console.log("🚀 ~ file: post.page.ts ~ line 43 ~ PostPage ~ fetchPost ~ this.post", this.post)
+      
+      this.postUser = this.post['user']
     }));
+  }
+
+  fetchPostComments(){
+    let response = this.http.get('http://192.168.1.66:8000/api/post_comments/' + this.idPost, {headers: this.headers})
+    .subscribe((response => {
+      this.postComments = Object.values(response)
+      this.postComments = this.postComments[0]
+      console.log("🚀 ~ file: post.page.ts ~ line 60 ~ PostPage ~ fetchPostComments ~ this.postComments", this.postComments)
+      
+      
+
+    }))
   }
 
 

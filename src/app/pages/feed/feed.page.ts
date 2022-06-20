@@ -41,10 +41,7 @@ export class FeedPage implements OnInit {
      this.router.navigateByUrl('feed/post/'+param);
     }
     
-    fetchPost(){
-
-      console.log("💨");
-      
+    fetchPost(){      
       const headers = new HttpHeaders({
         'Accept': 'application/json',
         'Authorization':'Bearer HflxhQS3cm6DPOsuAd5DDypJaIuT9Im39gQhVyOl'
@@ -55,28 +52,18 @@ export class FeedPage implements OnInit {
       .subscribe((response => {
         let res = Object.values(response);
         this.posts = res[0]
-        console.log("🚀 ~ file: feed.page.ts ~ line 81 ~ FeedPage ~ fetchPost ~ this.posts", this.posts)
-        
-        
-        
+        console.log("🚀 ~ file: feed.page.ts ~ line 55 ~ FeedPage ~ fetchPost ~ this.posts", this.posts )
       }));
     }
 
     addStar(id){
-      // for(let i = 0; i < this.posts.length; i++){
-      //   if(this.posts[i].id == id){
-      //     this.posts[i].stars++;
-      //   }
-      // }
-
       console.log('http://192.168.1.66:8000/api/star/' + id);
 
       
       let response = this.http.post('http://192.168.1.66:8000/api/star/' + id, {headers: this.headers})
       .subscribe((response => {
       console.log("🚀 ~ file: feed.page.ts ~ line 70 ~ FeedPage ~ addStar ~ response", response)
-
-      this.fetchPost()
+      // this.fetchPost()
       }));
       
       
