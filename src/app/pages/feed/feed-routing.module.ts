@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'post/:id',
     loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'profil-users/:id',
+    loadChildren: () => import('./profil-users/profil-users.module').then( m => m.ProfilUsersPageModule)
   }
 ];
 

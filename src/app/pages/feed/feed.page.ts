@@ -12,10 +12,11 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class FeedPage implements OnInit {
   
   posts = []
-
+  
+  TOKEN = localStorage.getItem('token')
   headers = new HttpHeaders({
     'Accept': 'application/json',
-    'Authorization':'Bearer HflxhQS3cm6DPOsuAd5DDypJaIuT9Im39gQhVyOl'
+    'Authorization':'Bearer ' + this.TOKEN
   })
 
   test = Math.floor(Math.random() * 1000)
@@ -40,42 +41,38 @@ export class FeedPage implements OnInit {
     goToPostComment(param){
      this.router.navigateByUrl('feed/post/'+param);
     }
-    
-    fetchPost(){      
-      const headers = new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization':'Bearer HflxhQS3cm6DPOsuAd5DDypJaIuT9Im39gQhVyOl'
-      })
-      
 
-      let response = this.http.get('http://192.168.1.66:8000/api/posts', {headers: headers})
+    goToProfil(user_id){
+      this.router.navigateByUrl('feed/profil-users/'+ user_id);
+    }
+    
+    fetchPost(){
+      let response = this.http.get('http://51.15.209.202:8000/api/posts', {headers: this.headers})
       .subscribe((response => {
         let res = Object.values(response);
         this.posts = res[0]
-        console.log("🚀 ~ file: feed.page.ts ~ line 55 ~ FeedPage ~ fetchPost ~ this.posts", this.posts )
       }));
     }
 
-    addStar(id){
-      console.log('http://192.168.1.66:8000/api/star/' + id);
 
-      
-      let response = this.http.post('http://192.168.1.66:8000/api/star/' + id, {headers: this.headers})
+    addStar(id){
+      let response = this.http.post('http://51.15.209.202:8000/api/star/' + id, '', {headers: this.headers})
       .subscribe((response => {
-      console.log("🚀 ~ file: feed.page.ts ~ line 70 ~ FeedPage ~ addStar ~ response", response)
-      // this.fetchPost()
+      console.log("🚀 ~ ", response)
+      console.log("🚀 ~ file: feed.page.ts ~ line 58 ~ FeedPage ~ addStar ~ response", response)
+      this.fetchPost()
       }));
-      
-      
     }
 
     addShare(id){
-      for(let i = 0; i < this.posts.length; i++){
-        if(this.posts[i].id == id){
-          this.posts[i].share++;
-        }
-      }
+      let response = this.http.post('http://51.15.209.202:8000/api/share/' + id, '', {headers: this.headers})
+      .subscribe((response => {
+      console.log("🚀 ~ ", response)
+      console.log("🚀 ~ file: feed.page.ts ~ line 58 ~ FeedPage ~ addStar ~ response", response)
+      this.fetchPost()
+      }));
     }
+
+    
+
   }
-  
-  

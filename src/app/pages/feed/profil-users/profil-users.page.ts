@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { GeneralService } from '../../../services/general.service';
 
 @Component({
-  selector: 'app-profil',
-  templateUrl: './profil.page.html',
-  styleUrls: ['./profil.page.scss'],
+  selector: 'app-profil-users',
+  templateUrl: './profil-users.page.html',
+  styleUrls: ['./profil-users.page.scss'],
 })
-export class ProfilPage implements OnInit {
+export class ProfilUsersPage implements OnInit {
 
-  user_id = localStorage.getItem('user_id')
+  user_id = this.route.snapshot.paramMap.get('id');
   user : any = {};
 
   TOKEN = localStorage.getItem('token')
@@ -21,19 +22,21 @@ export class ProfilPage implements OnInit {
 
   constructor(
     private http: HttpClient,
+    private route: ActivatedRoute,
+    private service: GeneralService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.fetchUser()
   }
+
+  // 51.15.209.202
 
   async fetchUser(){      
     await this.http.get('http://51.15.209.202:8000/api/users/' + this.user_id, {headers: this.headers})
     .subscribe((response => {
       let res = Object.values(response);
       this.user = res[0]
-      // console.log("🚀 ~ ~ res[0]", res[0])
-      // console.log("🚀 ~  ~  ~ this.user", this.user)
     }));
   }
 

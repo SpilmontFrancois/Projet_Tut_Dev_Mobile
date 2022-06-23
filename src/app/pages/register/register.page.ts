@@ -72,14 +72,11 @@ register(){
   let options = { headers: headers };
 
   this.http.post(
-    "http://192.168.1.66:8000/api/register",
+    "http://51.15.209.202:8000/api/register",
     body,
     options
   ).subscribe((response: any) => {
-    console.log("🚀 ~ file: register.page.ts ~ line 79 ~ RegisterPage ~ ).subscribe ~ response", response)
     localStorage.setItem('token', response)
-
-    //11|CnLPMNy1dTUqyaEoWDUI5mNwEZwlke3UKCBtATjG
   })
 }
 

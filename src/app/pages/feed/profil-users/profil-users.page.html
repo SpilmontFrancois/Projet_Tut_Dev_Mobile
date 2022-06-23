@@ -1,11 +1,15 @@
 <ion-content>
   <div class="content">
     <div class="background"></div>
-    <div class="profil-pic"></div>
+    <div class="profil-pic">
+      <ion-avatar style="background-color:black;"> 
+        <img src="{{this.user.avatar}}"/>
+      </ion-avatar>
+    </div>
     <div class="profil-infos">
       <div class="buttons">
         <ion-icon class="button button-message" name="mail-outline"></ion-icon>
-        <p class="button button-follow">Edit</p>
+        <p class="button button-follow">Follow</p>
       </div>
       <div *ngIf="this.user" class="usernames">
         <h1 class="title">{{ this.user.username }}</h1>
@@ -17,9 +21,6 @@
       <div class="description">
         <p>{{ this.user.bio }}</p>
       </div>
-      
-      
-      
     </div>
   </div>
   

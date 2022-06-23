@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { GeneralService } from '../../../services/general.service';
 
 @Component({
   selector: 'app-post',
@@ -10,15 +11,15 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 
 export class PostPage implements OnInit {
-
+  TOKEN = localStorage.getItem('token')
   headers = new HttpHeaders({
     'Accept': 'application/json',
-    'Authorization':'Bearer HflxhQS3cm6DPOsuAd5DDypJaIuT9Im39gQhVyOl'
+    'Authorization':'Bearer ' + this.TOKEN
   })
 
   idPost: string;
 
-  post = []
+  post = [];
 
   postUser = [];
 
@@ -26,8 +27,8 @@ export class PostPage implements OnInit {
 
   postCommentsUser = [];
 
-
   constructor(
+    public services : GeneralService,
     private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -35,13 +36,13 @@ export class PostPage implements OnInit {
 
   ngOnInit() {
     this.idPost = this.route.snapshot.paramMap.get('id');
-
+    localStorage.setItem('post_id', this.idPost)
     this.fetchPost()
     this.fetchPostComments()
   }
 
   fetchPost(){
-    let response = this.http.get('http://192.168.1.66:8000/api/posts/' + this.idPost, {headers: this.headers})
+    let response = this.http.get('http://51.15.209.202:8000/api/posts/' + this.idPost, {headers: this.headers})
     .subscribe((response => {
       this.post = Object.values(response)
       this.post = this.post[0]
@@ -51,14 +52,11 @@ export class PostPage implements OnInit {
   }
 
   fetchPostComments(){
-    let response = this.http.get('http://192.168.1.66:8000/api/post_comments/' + this.idPost, {headers: this.headers})
+    let response = this.http.get('http://51.15.209.202:8000/api/post_comments/' + this.idPost, {headers: this.headers})
     .subscribe((response => {
       this.postComments = Object.values(response)
       this.postComments = this.postComments[0]
       console.log("🚀 ~ file: post.page.ts ~ line 60 ~ PostPage ~ fetchPostComments ~ this.postComments", this.postComments)
-      
-      
-
     }))
   }
 

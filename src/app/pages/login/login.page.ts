@@ -39,6 +39,10 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit(){
+    //! 
+    // localStorage.setItem('token', 'YtDKHI7ymvajXMDEXfrPAkm9NpMilFRBW11HSFgw')
+    //!
+
     if(!this.form.valid) {
       console.log('not valid');
       
@@ -63,20 +67,35 @@ export class LoginPage implements OnInit {
     let options = { headers: headers };
   
     this.http.post(
-      "http://192.168.1.66:8000/api/login",
+      "http://51.15.209.202:8000/api/login",
       body,
       options
     ).subscribe((response: any) => {
-      console.log(response);
-      localStorage.setItem('token', response)
+      let data = response;
+      data = data.access_token.split('|')
+      if(data[1]){
+        localStorage.setItem('token', data[1])
+        this.router.navigateByUrl('/tabs/feed')
 
-      this.router.navigateByUrl('/tabs/feed')
-
+        this.getUserById(data[1])
+      }
       this.api.login(response)
-
     })
+
   }
 
-  
+  getUserById(token){
 
+    let headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization':'Bearer ' + token
+    })
+
+
+    this.http.get("http://51.15.209.202:8000/api/me", {headers: headers})
+    .subscribe((response: any) => {
+      let data = response;
+      localStorage.setItem('user_id', data.user.id)
+    })
+  }
 }
