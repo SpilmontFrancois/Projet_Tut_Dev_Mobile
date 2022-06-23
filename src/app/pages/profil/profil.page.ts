@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { GeneralService } from 'src/app/services/general.service';
 
 
 @Component({
@@ -19,8 +20,11 @@ export class ProfilPage implements OnInit {
     'Authorization':'Bearer ' + this.TOKEN
   })
 
+  API_URL = this.services.getAPI_URL();
+  
   constructor(
     private http: HttpClient,
+    private services: GeneralService,
   ) { }
 
   ngOnInit() {
@@ -28,7 +32,7 @@ export class ProfilPage implements OnInit {
   }
 
   async fetchUser(){      
-    await this.http.get('http://51.15.209.202:8000/api/users/' + this.user_id, {headers: this.headers})
+    await this.http.get(this.API_URL + '/users/' + this.user_id, {headers: this.headers})
     .subscribe((response => {
       let res = Object.values(response);
       this.user = res[0]

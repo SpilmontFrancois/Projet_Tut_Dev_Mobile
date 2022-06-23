@@ -27,6 +27,7 @@ export class PostPage implements OnInit {
 
   postCommentsUser = [];
 
+  API_URL = this.services.getAPI_URL();
   constructor(
     public services : GeneralService,
     private router: Router,
@@ -42,7 +43,7 @@ export class PostPage implements OnInit {
   }
 
   fetchPost(){
-    let response = this.http.get('http://51.15.209.202:8000/api/posts/' + this.idPost, {headers: this.headers})
+    let response = this.http.get(this.API_URL + '/posts/' + this.idPost, {headers: this.headers})
     .subscribe((response => {
       this.post = Object.values(response)
       this.post = this.post[0]
@@ -52,7 +53,7 @@ export class PostPage implements OnInit {
   }
 
   fetchPostComments(){
-    let response = this.http.get('http://51.15.209.202:8000/api/post_comments/' + this.idPost, {headers: this.headers})
+    let response = this.http.get(this.API_URL + '/post_comments/' + this.idPost, {headers: this.headers})
     .subscribe((response => {
       this.postComments = Object.values(response)
       this.postComments = this.postComments[0]

@@ -16,12 +16,11 @@ export class RegisterPage implements OnInit {
   form: FormGroup;
   type = false;
 
+  API_URL = this.services.getAPI_URL();
   constructor(
-    public router: Router,
-    public services : GeneralService,
-
-    public http: HttpClient,
-
+    private router: Router,
+    private services : GeneralService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit() {
@@ -64,7 +63,7 @@ register(){
   body.set("lastname", this.form.value.lastname);
   body.set("email", this.form.value.email);
   body.set("password", this.form.value.password);
-
+  
   let headers = new HttpHeaders({
     'Content-Type': 'application/x-www-form-urlencoded'
   });
@@ -72,11 +71,12 @@ register(){
   let options = { headers: headers };
 
   this.http.post(
-    "http://51.15.209.202:8000/api/register",
+     this.API_URL + "/register",
     body,
     options
   ).subscribe((response: any) => {
     localStorage.setItem('token', response)
+    console.log("🟢");
   })
 }
 

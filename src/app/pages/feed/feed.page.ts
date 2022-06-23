@@ -21,10 +21,12 @@ export class FeedPage implements OnInit {
 
   test = Math.floor(Math.random() * 1000)
   
+  API_URL = this.services.getAPI_URL();
   constructor(
     public services : GeneralService,
     private router: Router,
     private http: HttpClient,
+    private service: GeneralService
     ) { }
     
     ngOnInit() {
@@ -47,7 +49,7 @@ export class FeedPage implements OnInit {
     }
     
     fetchPost(){
-      let response = this.http.get('http://51.15.209.202:8000/api/posts', {headers: this.headers})
+      let response = this.http.get(this.API_URL + '/posts', {headers: this.headers})
       .subscribe((response => {
         let res = Object.values(response);
         this.posts = res[0]
@@ -56,19 +58,15 @@ export class FeedPage implements OnInit {
 
 
     addStar(id){
-      let response = this.http.post('http://51.15.209.202:8000/api/star/' + id, '', {headers: this.headers})
+      let response = this.http.post(this.API_URL +  '/star/' + id, '', {headers: this.headers})
       .subscribe((response => {
-      console.log("🚀 ~ ", response)
-      console.log("🚀 ~ file: feed.page.ts ~ line 58 ~ FeedPage ~ addStar ~ response", response)
       this.fetchPost()
       }));
     }
 
     addShare(id){
-      let response = this.http.post('http://51.15.209.202:8000/api/share/' + id, '', {headers: this.headers})
+      let response = this.http.post(this.API_URL + '/share/' + id, '', {headers: this.headers})
       .subscribe((response => {
-      console.log("🚀 ~ ", response)
-      console.log("🚀 ~ file: feed.page.ts ~ line 58 ~ FeedPage ~ addStar ~ response", response)
       this.fetchPost()
       }));
     }

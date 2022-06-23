@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-add-post',
@@ -24,11 +25,13 @@ export class AddPostPage implements OnInit {
 
   formPost: FormGroup;
 
+  API_URL = this.services.getAPI_URL();
   constructor(
     private router : Router,
     private modalCtrl: ModalController,
     private http: HttpClient,
     private route: ActivatedRoute,
+    public services : GeneralService,
   ) {
     let test = this.route.snapshot.paramMap.get('id')
     console.log("🚀 ~ file: add-post.page.ts ~ line 33 ~ AddPostPage ~ test", test)
@@ -52,7 +55,7 @@ export class AddPostPage implements OnInit {
       'user_id': localStorage.getItem('user_id'),
     }
   
-    this.http.post('http://51.15.209.202:8000/api/posts', data, {headers: this.headers})
+    this.http.post(this.API_URL + '/posts', data, {headers: this.headers})
     .subscribe((response) => {
       console.log(response);
     })
@@ -69,7 +72,7 @@ export class AddPostPage implements OnInit {
       'user_id': localStorage.getItem('user_id'),
     }
   
-    this.http.post('http://51.15.209.202:8000/api/post_comments', data, {headers: this.headers})
+    this.http.post( this.API_URL + 'post_comments', data, {headers: this.headers})
     .subscribe((response) => {
       console.log(response);
     })

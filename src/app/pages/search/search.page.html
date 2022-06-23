@@ -49,7 +49,7 @@
   
   <div *ngIf="!listOfRes" class="content-empty">
     <p>Votre recherche est vide</p>
-    <img class="empty" src="../../../assets/img/empty.svg" alt="">
+    <img class="empty" src="../../../assets/img/empty.svg" alt="" (click)="this.router.navigateByUrl('login')">
   </div>
   
   

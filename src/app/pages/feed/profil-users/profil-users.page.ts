@@ -20,10 +20,11 @@ export class ProfilUsersPage implements OnInit {
     'Authorization':'Bearer ' + this.TOKEN
   })
 
+  API_URL = this.services.getAPI_URL();
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private service: GeneralService,
+    private services: GeneralService,
   ) { }
 
   ngOnInit() {    
@@ -33,7 +34,7 @@ export class ProfilUsersPage implements OnInit {
   // 51.15.209.202
 
   async fetchUser(){      
-    await this.http.get('http://51.15.209.202:8000/api/users/' + this.user_id, {headers: this.headers})
+    await this.http.get( this.API_URL+ '/users/' + this.user_id, {headers: this.headers})
     .subscribe((response => {
       let res = Object.values(response);
       this.user = res[0]

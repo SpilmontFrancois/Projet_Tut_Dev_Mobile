@@ -6,7 +6,9 @@ import { ToastController } from '@ionic/angular';
 
 
 // let apiURL = "https://";
-let apiURL = "http://192.168.1.66:8000/api";
+let apiURL = "http://192.168.1.66:8000/api"; // localhost - Maison
+// let apiURL = 'http://51.15.209.202:8000/api/'; // Serveur
+// let apiURL = "http://10.11.79.147:8000/api"; // localhost - DUT
 
 
 @Injectable({
@@ -15,14 +17,14 @@ let apiURL = "http://192.168.1.66:8000/api";
 export class GeneralService {
   [x: string]: any;
   
-
+  
   TOKEN = localStorage.getItem('token')
   headers = new HttpHeaders({
     'Accept': 'application/json',
     'Authorization':'Bearer ' + this.TOKEN
   })
-
-
+  
+  
   constructor(
     public modalCtrl : ModalController,
     public http: HttpClient,
@@ -40,6 +42,8 @@ export class GeneralService {
     openSheetModal(typeOfPost){
       if(typeOfPost == 'coment'){
         localStorage.setItem('typeOfPost', typeOfPost)
+      }else {
+        localStorage.setItem('typeOfPost', 'post')
       }
       
       this.openModalAddChild({
@@ -48,50 +52,69 @@ export class GeneralService {
       });
     }
     
-    // getData(method) {
-    //   return new Promise((resolve, reject) => {
-    //     let headers = new Headers();
-    //     this.http.get(apiURL + method)
-    //     .subscribe(res => {
-    //       resolve(res);
-    //     }, (err) => {
-    //       reject(err);
-    //       console.error('err | ' + err);
-    //     });
-    //   });
+    async showToast(header, message, color, time){
+      const toast = await this.toastController.create({
+        header: header,
+        message: message,
+        icon: 'information-circle',
+        color: color,
+        duration: time
+      });
+      await toast.present();
+    }
+    
+    
+    // async getData(request, param){      
+    //   await this.http.get('http://51.15.209.202:8000/api/' + request + param, {headers: this.headers})
+    //   .subscribe((response => {
+    //     let res = Object.values(response);
+    //     console.log(res);
+    
+    //   }));
     // }
     
-    // postData(parameters, method) {
-    //   return new Promise((resolve, reject) => {
-    //     let headers = new Headers();
-    //     this.http.post(apiURL + method, JSON.stringify(parameters))
-    //     .subscribe(res => {
-    //       resolve(res);
-    //     }, (err) => {
-    //       reject(err);
-    //       console.error('err | ' + err);
-    //     });
-    //   });
+    
+    // async postData(request, data){
+    //   await this.http.post('http://51.15.209.202:8000/api/' + request, data, {headers: this.headers})
+    //   .subscribe((response => {
+    //     console.log("🚀 ~ ", response)
+    
+    //   }));
     // }
-  
-  async showToast(header, message, color, time){
-    const toast = await this.toastController.create({
-      header: header,
-      message: message,
-      icon: 'information-circle',
-      color: color,
-      duration: time
-    });
-    await toast.present();
-  }
-  
+    
+    
+    
+    getData(method) {
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        this.http.get(apiURL + method)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.error('err | ' + err);
+        });
+      });
+    }
+    
+    postData(parameters, method){
 
-  async getData(param){      
-    await this.http.get('http://51.15.209.202:8000/api/' + param, {headers: this.headers})
-    .subscribe((response => {
-      let res = Object.values(response);
-      this.user = res[0]
-    }));
-  }
+      console.log(parameters);
+      
+      return new Promise((resolve, reject) => {
+        this.http.post(apiURL + method, JSON.stringify(parameters), { headers: this.headers })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+          console.error('err | ' + err);
+        });
+      }) 
+      }
 
-}
+      getAPI_URL(){
+        return apiURL;
+      }
+      
+      
+    }

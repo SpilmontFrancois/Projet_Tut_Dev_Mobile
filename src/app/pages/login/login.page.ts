@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { GeneralService } from '../../services/general.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +16,12 @@ export class LoginPage implements OnInit {
   form: FormGroup;
   type = true;
 
+  API_URL = this.services.getAPI_URL();
   constructor(
     public router: Router,
     public http: HttpClient,
-    private api: AuthenticationService
+    private api: AuthenticationService,
+    private services : GeneralService,
   ) {
     this.initForm();
   }
@@ -39,10 +41,6 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit(){
-    //! 
-    // localStorage.setItem('token', 'YtDKHI7ymvajXMDEXfrPAkm9NpMilFRBW11HSFgw')
-    //!
-
     if(!this.form.valid) {
       console.log('not valid');
       
@@ -67,7 +65,7 @@ export class LoginPage implements OnInit {
     let options = { headers: headers };
   
     this.http.post(
-      "http://51.15.209.202:8000/api/login",
+      this.API_URL + "/login",
       body,
       options
     ).subscribe((response: any) => {
@@ -92,7 +90,7 @@ export class LoginPage implements OnInit {
     })
 
 
-    this.http.get("http://51.15.209.202:8000/api/me", {headers: headers})
+    this.http.get(this.API_URL + "/me", {headers: headers})
     .subscribe((response: any) => {
       let data = response;
       localStorage.setItem('user_id', data.user.id)
