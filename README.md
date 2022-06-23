@@ -20,3 +20,9 @@
 * Exécuter `yarn install` ou `npm install`
 * Exécuter `yarn dev` ou `npm run dev`
 * Aller sur http://localhost:3000 (par défaut)
+
+#### Front Flutter
+
+* Exécuter `cd flutter_app/`
+* Exécuter `flutter run`
+* Une fenêtre s'ouvrira avec un navigateur internet
