@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
-  final String _url = 'http://192.168.1.106:8000/api';
+  final String _url = 'http://51.15.209.202:8000/api';
   String token = '';
 
   _getToken() async {
