@@ -6,6 +6,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { GeneralService } from '../../services/general.service';
 
+// import { HTTP, HTTPOriginal } from '@ionic-native/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -22,17 +24,21 @@ export class LoginPage implements OnInit {
     public http: HttpClient,
     private api: AuthenticationService,
     private services : GeneralService,
+    // private http: HTTPOriginal,
   ) {
     this.initForm();
   }
 
   ngOnInit() {
+    // localStorage.setItem('token', '8Fxg0ilKLfqre9RHbpBfUx6olwfnPs3iRHbZcFG3')
+    // localStorage.setItem('user_id', '12')
+
   }
 
   initForm() {
     this.form = new FormGroup({
       email: new FormControl(null, {validators: [Validators.required, Validators.email]}),
-      password: new FormControl(null, {validators: [Validators.required, Validators.minLength(8)]})
+      password: new FormControl(null, {validators: [Validators.required]})
     });
   }
 
@@ -53,17 +59,28 @@ export class LoginPage implements OnInit {
 
 
   login(){
+    console.log("email : ", this.form.value.email);
+    console.log("pass : ", this.form.value.password);
+    
     let body = new URLSearchParams;
     body.set("grant_type", "authorization_code");
     body.set("email", this.form.value.email);
     body.set("password", this.form.value.password);
+
+    // let body = {data : {
+    //   grant_type: "authorization_code",
+    //   email: this.form.value.email,
+    //   password: this.form.value.password
+    // }}
   
-    let headers = new HttpHeaders({
+    let headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
-    });
+    };
   
-    let options = { headers: headers };
+    let options = { headers };
   
+    console.log("body : ", body);
+    
     this.http.post(
       this.API_URL + "/login",
       body,
@@ -79,11 +96,9 @@ export class LoginPage implements OnInit {
       }
       this.api.login(response)
     })
-
   }
 
   getUserById(token){
-
     let headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization':'Bearer ' + token

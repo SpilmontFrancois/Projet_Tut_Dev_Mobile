@@ -24,10 +24,11 @@ export class AuthenticationService {
   
 
   async loadToken() {
-    const token = await Storage.get({ key: TOKEN_KEY });    
-    if (token && token.value) {
-      console.log('set token: ', token.value);
-      this.token = token.value;
+    // const token = await Storage.get({ key: TOKEN_KEY });    
+    const token = localStorage.getItem('token')
+    if (token && token) {
+      console.log('set token: ', token);
+      this.token = token;
       this.isAuthenticated.next(true);
     } else {
       this.isAuthenticated.next(false);
@@ -36,11 +37,19 @@ export class AuthenticationService {
 
   login(uid){
     this.isAuthenticated.next(true);
-    return from(Storage.set({key: TOKEN_KEY, value: uid}));
+    // console.log({key: TOKEN_KEY, value: uid});
+    console.log(localStorage.getItem('token'));
+    if(localStorage.getItem('token')){
+      this.isAuthenticated.next(true);
+    }
+    // return from(Storage.set({key: TOKEN_KEY, value: uid}));
+    return localStorage.getItem('token');
   }
 
   logout(): Promise<void> {
     this.isAuthenticated.next(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
     return Storage.remove({key: TOKEN_KEY});
   }
   

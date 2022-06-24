@@ -20,6 +20,11 @@ const routes: Routes = [
         path: 'profil',
         loadChildren: () => import('../pages/profil/profil.module').then(m => m.ProfilPageModule)
       },
+      {
+        path: '',
+        redirectTo: 'feed',
+        pathMatch: 'full'
+      },
     ]
   }
 ];

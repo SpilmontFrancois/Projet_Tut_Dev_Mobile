@@ -11,13 +11,13 @@ import { filter, map, take } from 'rxjs/operators'
 export class AutoLoginGuard implements CanLoad {
 
   constructor(
-    private api: AuthenticationService,
+    private auth: AuthenticationService,
     private router: Router
     ) { }
 
 
   canLoad(): Observable<boolean> {    
-    return this.api.isAuthenticated.pipe(
+    return this.auth.isAuthenticated.pipe(
       filter(val => val !== null), // Filter out initial Behaviour subject value
       take(1), // Otherwise the Observable doesn't complete!
       map(isAuthenticated => {

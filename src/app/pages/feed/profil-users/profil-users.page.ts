@@ -31,8 +31,6 @@ export class ProfilUsersPage implements OnInit {
     this.fetchUser()
   }
 
-  // 51.15.209.202
-
   async fetchUser(){      
     await this.http.get( this.API_URL+ '/users/' + this.user_id, {headers: this.headers})
     .subscribe((response => {

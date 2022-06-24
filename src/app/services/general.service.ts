@@ -6,8 +6,8 @@ import { ToastController } from '@ionic/angular';
 
 
 // let apiURL = "https://";
-let apiURL = "http://192.168.1.66:8000/api"; // localhost - Maison
-// let apiURL = 'http://51.15.209.202:8000/api/'; // Serveur
+// let apiURL = "http://192.168.1.66:8000/api"; // localhost - Maison
+let apiURL = 'http://51.15.209.202:8000/api'; // Serveur
 // let apiURL = "http://10.11.79.147:8000/api"; // localhost - DUT
 
 
@@ -62,27 +62,6 @@ export class GeneralService {
       });
       await toast.present();
     }
-    
-    
-    // async getData(request, param){      
-    //   await this.http.get('http://51.15.209.202:8000/api/' + request + param, {headers: this.headers})
-    //   .subscribe((response => {
-    //     let res = Object.values(response);
-    //     console.log(res);
-    
-    //   }));
-    // }
-    
-    
-    // async postData(request, data){
-    //   await this.http.post('http://51.15.209.202:8000/api/' + request, data, {headers: this.headers})
-    //   .subscribe((response => {
-    //     console.log("🚀 ~ ", response)
-    
-    //   }));
-    // }
-    
-    
     
     getData(method) {
       return new Promise((resolve, reject) => {

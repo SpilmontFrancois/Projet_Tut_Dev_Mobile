@@ -26,7 +26,6 @@ export class FeedPage implements OnInit {
     public services : GeneralService,
     private router: Router,
     private http: HttpClient,
-    private service: GeneralService
     ) { }
     
     ngOnInit() {
@@ -45,7 +44,7 @@ export class FeedPage implements OnInit {
     }
 
     goToProfil(user_id){
-      this.router.navigateByUrl('feed/profil-users/'+ user_id);
+      this.router.navigateByUrl('tabs/feed/profil-users/'+ user_id);
     }
     
     fetchPost(){
